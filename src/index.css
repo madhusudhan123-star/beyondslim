@@ -1,0 +1,89 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Markazi+Text:wght@400..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+.backgroundimg {
+    background-image: url('../src/assets/bg.jpeg');
+    
+}
+
+.home {
+  font-family: "Markazi Text", serif;
+  font-optical-sizing: auto;
+  font-style: normal;
+}
+
+.navbar {
+    font-family: "Poppins", serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+@keyframes float {
+    0% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+    100% {
+        transform: translateY(0);
+    }
+}
+
+@keyframes fade-in {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes magnet {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+@keyframes drag {
+     0%, 100% {
+        transform: translateX(0) rotateY(0);
+    }
+    25% {
+        transform: translateX(-10px) rotateY(-10deg);
+    }
+    50% {
+        transform: translateX(10px) rotateY(10deg);
+    }
+    75% {
+        transform: translateX(-10px) rotateY(-10deg);
+    }
+}
+
+.animate-float {
+    animation: float 3s ease-in-out infinite;
+}
+
+.animate-fade-in {
+    animation: fade-in 2s ease-in-out;
+}
+
+.animate-magnet:hover {
+    animation: magnet 0.1s ease-in-out; /* Reduced duration for instant effect */
+}
+
+.animate-drag {
+    animation: drag 3s ease-in-out infinite; /* Infinite dragging animation with 3D effect */
+}
+
+
