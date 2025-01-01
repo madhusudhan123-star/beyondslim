@@ -69,10 +69,10 @@ const Home = () => {
 
     return (
         <div className='home font-lato bg-gray-100 text-gray-900'>
-            <div className='backgroundimg bg-cover bg-center w-full min-h-screen relative'>
+            <div className='backgroundimg relative'>
                 <div className='absolute inset-0 bg-black bg-opacity-50'></div>
-                <div className='relative z-10 px-4 md:px-28 py-20'>
-                    <div className="flex flex-col md:flex-row items-center justify-between animate-fade-in">
+                <div className='relative z-10 px-4 md:px-28 py-20 min-h-screen flex items-center'>
+                    <div className="flex flex-col md:flex-row items-center justify-between animate-fade-in w-full">
                         <div className="w-full md:w-1/2 text-center md:text-left">
                             <h1 className="text-3xl md:text-5xl lg:text-7xl font-bold text-white font-poppins mb-6"
                                 dangerouslySetInnerHTML={{ __html: home.hero.title }}>
@@ -82,10 +82,10 @@ const Home = () => {
                             </p>
                             <button
                                 ref={buttonRef}
-                                className="bg-blue-500 text-xl md:text-2xl text-white py-3 md:py-4 px-6 md:px-8 rounded-full font-bold 
-                                    flex items-center justify-center md:justify-start hover:bg-blue-600 animate-magnet mx-auto md:mx-0"
+                                className="bg-blue-500 text-xl md:text-2xl text-white py-3 md:py-4 px-6 md:px-8 rounded-full 
+                                    font-bold flex items-center justify-center md:justify-start hover:bg-blue-600 
+                                    animate-magnet mx-auto md:mx-0"
                             >
-
                                 {home.hero.buttonText}
                                 <span className="ml-2">→</span>
                             </button>
