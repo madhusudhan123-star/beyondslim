@@ -80,15 +80,17 @@ const Home = () => {
                             <p className="text-lg md:text-xl text-white mb-8 leading-relaxed tracking-wide">
                                 {home.hero.description}
                             </p>
-                            <button
-                                ref={buttonRef}
-                                className="bg-blue-500 text-xl md:text-2xl text-white py-3 md:py-4 px-6 md:px-8 rounded-full 
+                            <a href="/products">
+                                <button
+                                    ref={buttonRef}
+                                    className="bg-blue-500 text-xl md:text-2xl text-white py-3 md:py-4 px-6 md:px-8 rounded-full 
                                     font-bold flex items-center justify-center md:justify-start hover:bg-blue-600 
                                     animate-magnet mx-auto md:mx-0"
-                            >
-                                {home.hero.buttonText}
-                                <span className="ml-2">→</span>
-                            </button>
+                                >
+                                    {home.hero.buttonText}
+                                    <span className="ml-2">→</span>
+                                </button>
+                            </a>
                         </div>
                     </div>
                 </div>
