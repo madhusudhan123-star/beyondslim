@@ -493,7 +493,7 @@ const Checkout = () => {
                         {orderDetails?.productName} x {orderDetails?.quantity}
                     </span>
                     <span className="text-gray-700">
-                        AED {orderDetails?.totalAmount}
+                        $ {orderDetails?.totalAmount}
                     </span>
                 </div>
 
@@ -503,7 +503,7 @@ const Checkout = () => {
                         {checkoutData.orderSummary.subtotal}
                     </span>
                     <span className="text-gray-700">
-                        AED {orderDetails?.totalAmount}
+                        $ {orderDetails?.totalAmount}
                     </span>
                 </div>
 
@@ -513,7 +513,7 @@ const Checkout = () => {
                         {checkoutData.orderSummary.shipping}
                     </span>
                     <div className="text-sm text-gray-500 mt-1 flex flex-col items-end gap-2">
-                        <span className="text-gray-700">AED {SHIPPING_CHARGE}</span>
+                        <span className="text-gray-700">$ {SHIPPING_CHARGE}</span>
                         <span>(Delivery within 5-7 business days)</span>
                     </div>
                 </div>
@@ -524,7 +524,7 @@ const Checkout = () => {
                         {checkoutData.orderSummary.total}
                     </span>
                     <span className="text-lg font-bold text-gray-800">
-                        AED {orderDetails?.totalAmount + SHIPPING_CHARGE}
+                        $ {orderDetails?.totalAmount + SHIPPING_CHARGE}
                     </span>
                 </div>
             </div>
