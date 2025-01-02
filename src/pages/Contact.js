@@ -4,8 +4,8 @@ import data from '../utils/data';
 import { FaPhone, FaEnvelope, FaMapMarkerAlt, FaClock } from 'react-icons/fa';
 
 const Contact = () => {
-    const { currentLang } = useLanguage();
-    const contact = data[currentLang].contact;
+    const { language } = useLanguage();
+    const contact = data[language].contact;
 
     const [formData, setFormData] = useState({
         name: '',
@@ -71,7 +71,7 @@ const Contact = () => {
             setSubmitStatus('sending');
 
             try {
-                const response = await fetch('https://formsubmit.co/ajax/dmadhusudhan98@gmail.com', {
+                const response = await fetch('https://formsubmit.co/ajax/israelitesshopping171@gmail.com', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -241,7 +241,7 @@ const Contact = () => {
                 <div className="rounded-xl overflow-hidden shadow-lg h-[400px]">
                     <iframe
                         title="Location Map"
-                        src="https://www.google.com/maps/embed?pb=YOUR_MAP_EMBED_URL"
+                        src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d28943.614735315532!2d78.465638!3d17.446136!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bcb91cd07585bcd%3A0xb10cf49e7038d870!2sISRAELITES%20SHOPPING%20NETWORK%20PVT%20LTD!5e1!3m2!1sen!2sin!4v1727708685071!5m2!1sen!2sin"
                         width="100%"
                         height="100%"
                         style={{ border: 0 }}

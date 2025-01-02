@@ -5,9 +5,9 @@ import data from '../utils/data';
 import { FaStar, FaMinus, FaPlus } from 'react-icons/fa';
 
 const Product = () => {
-    const { currentLang } = useLanguage();
+    const { language } = useLanguage();
     const navigate = useNavigate();
-    const product = data[currentLang].products[0]; // For demo, using first product
+    const product = data[language].products[0]; // For demo, using first product
     const [quantity, setQuantity] = useState(1);
 
     const handleQuantityChange = (action) => {
@@ -116,6 +116,3 @@ const Product = () => {
 };
 
 export default Product;
-
-
-

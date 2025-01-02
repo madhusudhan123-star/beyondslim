@@ -5,9 +5,9 @@ import { FaChevronDown, FaChevronUp } from 'react-icons/fa';
 import faq from '../assets/faq.jpg';
 
 const Home = () => {
-    const { currentLang } = useLanguage();
-    const home = data[currentLang].home;
-    const footer = data[currentLang].footer;
+    const { language } = useLanguage();
+    const home = data[language].home;
+    const footer = data[language].footer;
     const buttonRef = useRef(null);
     const [timeLeft, setTimeLeft] = useState({
         days: 0,
@@ -250,4 +250,3 @@ const Home = () => {
 };
 
 export default Home;
-

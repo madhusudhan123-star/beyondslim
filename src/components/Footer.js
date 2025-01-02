@@ -2,10 +2,19 @@ import React from 'react';
 import data from '../utils/data';
 import { useLanguage } from '../context/LanguageContext';
 import '@fortawesome/fontawesome-free/css/all.min.css';
+import { Link } from 'react-router-dom';
 
 const Footer = () => {
-    const { currentLang } = useLanguage();
-    const footerData = data[currentLang].footer;
+    const { language } = useLanguage();
+    const footerData = data[language].footer;
+
+    const policyLinks = [
+        { title: "Shipping Policy", path: "/shipping" },
+        { title: "Return Policy", path: "/return-policy" },
+        { title: "Cancellation Policy", path: "/cancel" },
+        { title: "Terms & Conditions", path: "/terms" },
+        { title: "Privacy Policy", path: "/privacy-policy" }
+    ];
 
     return (
         <footer className="bg-[#add2ff] text-gray-700 pt-8 pb-6">
@@ -80,15 +89,16 @@ const Footer = () => {
                         <h3 className="text-xl font-semibold text-blue-700 mb-4">
                             {footerData.usefulLinks.title}
                         </h3>
-                        <ul className="grid grid-cols-2 gap-3">
-                            {footerData.usefulLinks.links.map((link, index) => (
-                                <li key={index}>
-                                    <a
-                                        href="#"
+                        <ul className="grid grid-cols-1 gap-3">
+                            {/* Policy Links */}
+                            {policyLinks.map((link, index) => (
+                                <li key={`policy-${index}`}>
+                                    <Link
+                                        to={link.path}
                                         className="text-sm md:text-base hover:text-blue-700 transition-colors duration-300"
                                     >
-                                        {link}
-                                    </a>
+                                        {link.title}
+                                    </Link>
                                 </li>
                             ))}
                         </ul>
@@ -111,12 +121,12 @@ const Footer = () => {
 
                         {/* Bottom Links */}
                         <div className="flex space-x-4 text-sm">
-                            <a href="#" className="hover:text-green-700 transition-colors duration-300">
+                            <Link to="/terms" className="hover:text-green-700 transition-colors duration-300">
                                 {footerData.bottomLinks.terms}
-                            </a>
-                            <a href="#" className="hover:text-green-700 transition-colors duration-300">
+                            </Link>
+                            <Link to="/privacy-policy" className="hover:text-green-700 transition-colors duration-300">
                                 {footerData.bottomLinks.privacy}
-                            </a>
+                            </Link>
                         </div>
                     </div>
                 </div>
