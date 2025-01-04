@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, Suspense } from 'react';
 import data from '../utils/data';
 import { useLanguage } from '../context/LanguageContext';
 import { FaChevronDown, FaChevronUp, FaFacebookF, FaTwitter, FaInstagram, FaQuoteRight } from 'react-icons/fa';
@@ -333,8 +333,8 @@ const Home = () => {
             </div>
 
             {/* Review Section */}
-            <section className="px-4 md:px-28 py-16 bg-white overflow-hidden">
-                <div className="text-center mb-12" data-aos="fade-up">
+            <div className="px-4 md:px-28 py-16 bg-white overflow-hidden">
+                <div className="text-center mb-12">
                     <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 font-poppins">
                         {home.testimonials.title}
                     </h2>
@@ -343,11 +343,9 @@ const Home = () => {
                     </p>
                 </div>
 
-                <div className="flex overflow-hidden relative">
-                    <div className='h-full w-1/5 z-10 absolute top-0 bg-gradient-to-r from-white to-transparent'>
-                    </div>
-                    <div className='h-full w-1/5 z-10 absolute top-0 right-0 bg-gradient-to-r from-transparent to-white '>
-                    </div>
+                <div className="flex flex-col md:flex-row md:space-x-8 space-y-8 md:space-y-0 overflow-x-auto md:overflow-hidden relative">
+                    <div className="hidden md:block h-full w-1/5 z-10 absolute top-0 bg-gradient-to-r from-white to-transparent"></div>
+                    <div className="hidden md:block h-full w-1/5 z-10 absolute top-0 right-0 bg-gradient-to-r from-transparent to-white"></div>
                     <div className="flex space-x-8 animate-slide-track">
                         {[...home.testimonials.items, ...home.testimonials.items].map((testimonial, index) => (
                             <div key={index} className="flex-shrink-0 w-full md:w-[400px] flex flex-col items-center p-6 bg-gray-50 rounded-lg shadow-lg" data-aos="fade-up" data-aos-delay={index * 100}>
@@ -376,7 +374,7 @@ const Home = () => {
                         ))}
                     </div>
                 </div>
-            </section>
+            </div>
         </div>
     );
 };
