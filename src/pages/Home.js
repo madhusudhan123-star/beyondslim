@@ -10,7 +10,7 @@ import two from '../assets/t_two.svg';
 import three from '../assets/t_three.svg';
 import four from '../assets/t_four.png';
 import five from '../assets/hala.png';
-import bottle from '../assets/product_bot.png';
+import bottle from '../assets/header_first_img.png';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 
