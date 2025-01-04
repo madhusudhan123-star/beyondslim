@@ -343,7 +343,11 @@ const Home = () => {
                     </p>
                 </div>
 
-                <div className="flex overflow-hidden">
+                <div className="flex overflow-hidden relative">
+                    <div className='h-full w-1/5 z-10 absolute top-0 bg-gradient-to-r from-white to-transparent'>
+                    </div>
+                    <div className='h-full w-1/5 z-10 absolute top-0 right-0 bg-gradient-to-r from-transparent to-white '>
+                    </div>
                     <div className="flex space-x-8 animate-slide-track">
                         {[...home.testimonials.items, ...home.testimonials.items].map((testimonial, index) => (
                             <div key={index} className="flex-shrink-0 w-full md:w-[400px] flex flex-col items-center p-6 bg-gray-50 rounded-lg shadow-lg" data-aos="fade-up" data-aos-delay={index * 100}>
