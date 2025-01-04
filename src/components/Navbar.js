@@ -5,7 +5,7 @@ import data from '../utils/data';
 import { FaBars, FaTimes, FaChevronDown } from 'react-icons/fa';
 
 const Navbar = () => {
-    const { language, toggleLanguage } = useLanguage();
+    const { language, setLanguage } = useLanguage(); // Add setLanguage to destructuring
     const location = useLocation();
     const [isOpen, setIsOpen] = useState(false);
     const [isScrolled, setIsScrolled] = useState(false);
@@ -44,6 +44,39 @@ const Navbar = () => {
         return 'text-gray-900'; // Default text color for other pages
     };
 
+    const getLanguageName = (code) => {
+        switch (code) {
+            case 'ENGLISH':
+                return 'EN';
+            case 'HI':
+                return 'हिंदी';
+            case 'AR':
+                return 'عربي';
+            default:
+                return 'EN';
+        }
+    };
+
+    const getLanguageToggleText = (code) => {
+        switch (code) {
+            case 'ENGLISH':
+                return 'Switch to हिंदी';
+            case 'HI':
+                return 'Switch to English';
+            case 'AR':
+                return 'Switch to English';
+            default:
+                return 'Switch to हिंदी';
+        }
+    };
+
+    // Modify the dropdown menu to show all available languages
+    const languages = [
+        { code: 'ENGLISH', name: 'English' },
+        { code: 'HI', name: 'हिंदी' },
+        { code: 'AR', name: 'عربي' }
+    ];
+
     return (
         <nav className={`fixed w-full z-50 transition-all duration-300 ${getNavbarBackground()} shadow-lg`}>
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -80,21 +113,26 @@ const Navbar = () => {
                                 onClick={() => setDropdownOpen(!dropdownOpen)}
                                 className={`flex items-center space-x-1 ${getLinkTextColor()}`}
                             >
-                                <span>{language === 'ENGLISH' ? 'EN' : 'HI'}</span>
+                                <span>{getLanguageName(language)}</span>
                                 <FaChevronDown className={`transition-transform duration-200 ${dropdownOpen ? 'rotate-180' : ''}`} />
                             </button>
 
                             {dropdownOpen && (
                                 <div className="absolute right-0 mt-2 w-24 bg-white rounded-md shadow-lg py-1">
-                                    <button
-                                        onClick={() => {
-                                            toggleLanguage();
-                                            setDropdownOpen(false);
-                                        }}
-                                        className="block w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                                    >
-                                        {language === 'ENGLISH' ? 'हिंदी' : 'English'}
-                                    </button>
+                                    {languages.map((lang) => (
+                                        <button
+                                            key={lang.code}
+                                            onClick={() => {
+                                                setLanguage(lang.code);
+                                                setDropdownOpen(false);
+                                            }}
+                                            className={`block w-full px-4 py-2 text-sm text-right ${
+                                                language === lang.code ? 'bg-gray-100 text-blue-600' : 'text-gray-700 hover:bg-gray-50'
+                                            }`}
+                                        >
+                                            {lang.name}
+                                        </button>
+                                    ))}
                                 </div>
                             )}
                         </div>
@@ -129,12 +167,19 @@ const Navbar = () => {
                     ))}
 
                     {/* Language Selector - Mobile */}
-                    <button
-                        onClick={toggleLanguage}
-                        className="w-full text-left px-3 py-2 text-base font-medium text-gray-900 hover:bg-gray-50 rounded-md"
-                    >
-                        {language === 'ENGLISH' ? 'Switch to हिंदी' : 'Switch to English'}
-                    </button>
+                    <div className="border-t border-gray-200 pt-2">
+                        {languages.map((lang) => (
+                            <button
+                                key={lang.code}
+                                onClick={() => setLanguage(lang.code)}
+                                className={`w-full text-left px-3 py-2 text-base font-medium ${
+                                    language === lang.code ? 'bg-gray-100 text-blue-600' : 'text-gray-900 hover:bg-gray-50'
+                                } rounded-md`}
+                            >
+                                {lang.name}
+                            </button>
+                        ))}
+                    </div>
                 </div>
             </div>
         </nav>

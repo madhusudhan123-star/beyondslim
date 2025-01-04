@@ -71,7 +71,7 @@ const Contact = () => {
             setSubmitStatus('sending');
 
             try {
-                const response = await fetch('https://formsubmit.co/ajax/israelitesshopping171@gmail.com', {
+                const response = await fetch('https://formsubmit.co/ajax/72cbb4b2a2daec6e7b0347a2e2b9bfa8', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',

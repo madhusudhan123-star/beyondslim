@@ -1,11 +1,22 @@
 import React, { useState, useRef, useEffect } from 'react';
 import data from '../utils/data';
 import { useLanguage } from '../context/LanguageContext';
-import { FaChevronDown, FaChevronUp } from 'react-icons/fa';
+import { FaChevronDown, FaChevronUp, FaFacebookF, FaTwitter, FaInstagram, FaQuoteRight } from 'react-icons/fa';
 import faq from '../assets/faq.jpg';
+import heroVideo from '../assets/video2.mp4';
+import heroVideo2 from '../assets/video1.mp4';
+import one from '../assets/t_one.svg';
+import two from '../assets/t_two.svg';
+import three from '../assets/t_three.svg';
+import four from '../assets/t_four.png';
+import five from '../assets/hala.png';
+import bottle from '../assets/product_bot.png';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
 const Home = () => {
     const { language } = useLanguage();
+    const { direction } = data[language];
     const home = data[language].home;
     const footer = data[language].footer;
     const buttonRef = useRef(null);
@@ -20,6 +31,10 @@ const Home = () => {
     const toggleFaq = (index) => {
         setFaqOpen(faqOpen === index ? null : index);
     };
+
+    useEffect(() => {
+        AOS.init({ duration: 1000 });
+    }, []);
 
     useEffect(() => {
         const targetDate = new Date().getTime() + 24 * 60 * 60 * 1000;
@@ -68,16 +83,81 @@ const Home = () => {
     }, []);
 
     return (
-        <div className='home font-lato bg-gray-100 text-gray-900'>
-            <div className='backgroundimg relative'>
+        <div className={`home font-lato bg-gray-100 text-gray-900 ${direction === 'rtl' ? 'rtl' : ''}`} dir={direction}>
+            {/* Second Hero Section with Local Video */}
+            {/* Header Section */}
+            <section className='relative min-h-screen'>
+                <div className='absolute inset-0'>
+                    <video
+                        autoPlay
+                        loop
+                        muted
+                        playsInline
+                        className="w-full h-full object-cover"
+                    >
+                        <source src={heroVideo} type="video/mp4" />
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+                <div className='absolute inset-0 bg-black bg-opacity-80'></div>
+                <div className='relative z-10 px-4 md:px-28 py-20 min-h-screen flex items-center'>
+                    <div className="flex flex-col md:flex-row items-center justify-between animate-fade-in w-full">
+                        <div className="w-full text-center md:text-start" data-aos="fade-up">
+                            <h1 className="text-3xl md:text-5xl lg:text-7xl font-bold text-white font-poppins mb-6"
+                                dangerouslySetInnerHTML={{ __html: home.hero.title }}>
+                            </h1>
+                            <p className="text-lg md:text-2xl lg:text-4xl text-white mb-8 leading-relaxed tracking-wide">
+                                {home.hero.description}
+                            </p>
+                            <a href="/products">
+                                <button
+                                    ref={buttonRef}
+                                    className="bg-blue-500 text-base md:text-xl lg:text-2xl text-white py-2 md:py-3 lg:py-4 
+                                    px-4 md:px-6 lg:px-8 rounded-full font-bold flex items-center justify-center md:justify-start 
+                                    hover:bg-blue-600 animate-pulse-glow mx-auto md:mx-0"
+                                >
+                                    {home.hero.buttonText}
+                                    <span className="ml-2">→</span>
+                                </button>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            {/* Trusted Brands Section */}
+            <section className='w-full md:w-full h-auto md:h-[11rem] relative md:top-[-11rem] bg-white py-8 md:py-0'>
+                <div className="w-full px-4 sm:px-8 py-8 md:py-12 bg-white">
+                    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-6 justify-items-center items-center mx-auto">
+                        <div data-aos="fade-right" data-aos-delay="0">
+                            <img src={one} alt="Trusted Brand 1" className="max-w-full h-auto" />
+                        </div>
+                        <div data-aos="fade-right" data-aos-delay="200">
+                            <img src={two} alt="Trusted Brand 2" className="max-w-full h-auto" />
+                        </div>
+                        <div data-aos="fade-right" data-aos-delay="400">
+                            <img src={three} alt="Trusted Brand 3" className="max-w-full h-auto" />
+                        </div>
+                        <div data-aos="fade-right" data-aos-delay="600">
+                            <img src={four} alt="Trusted Brand 4" className="w-[8.5rem] h-auto" />
+                        </div>
+                        <div data-aos="fade-right" data-aos-delay="800">
+                            <img src={five} alt="Trusted Brand 5" className="max-w-full h-auto" />
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            {/* First Hero Section (existing) */}
+            {/* <div className='backgroundimg relative'>
                 <div className='absolute inset-0 bg-black bg-opacity-50'></div>
                 <div className='relative z-10 px-4 md:px-28 py-20 min-h-screen flex items-center'>
                     <div className="flex flex-col md:flex-row items-center justify-between animate-fade-in w-full">
                         <div className="w-full md:w-1/2 text-center md:text-left">
-                            <h1 className="text-3xl md:text-5xl lg:text-7xl font-bold text-white font-poppins mb-6"
+                            <h1 className="text-5xl md:text-5xl lg:text-7xl font-bold text-white font-poppins mb-6"
                                 dangerouslySetInnerHTML={{ __html: home.hero.title }}>
                             </h1>
-                            <p className="text-lg md:text-xl text-white mb-8 leading-relaxed tracking-wide">
+                            <p className="text-2xl md:text-4xl text-white mb-8 leading-relaxed tracking-wide">
                                 {home.hero.description}
                             </p>
                             <a href="/products">
@@ -94,27 +174,40 @@ const Home = () => {
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> */}
 
-            <div className="flex flex-col md:flex-row justify-between gap-10 mt-8 px-4 md:px-28">
-                <div className="w-full md:w-1/2 relative">
+            {/* About Section */}
+            <section className="flex flex-col md:flex-row justify-between gap-10 mt-8 px-4 py-10 md:px-28">
+                <div className="w-full md:w-1/2 p-4 flex flex-col justify-start items-baseline gap-4 animate-fade-in" data-aos="fade-up">
+                    <h2 className="text-3xl md:text-5xl lg:text-7xl font-bold text-gray-800 mb-4 font-poppins"
+                        dangerouslySetInnerHTML={{ __html: home.about.additionalContent.title }}>
+                    </h2>
+                    <p className="text-lg md:text-xl lg:text-2xl text-gray-600 mb-4 leading-relaxed tracking-wide"
+                        dangerouslySetInnerHTML={{ __html: home.about.additionalContent.description }}>
+                    </p>
+                    <a href="/products">
+                    <button
+                                    ref={buttonRef}
+                                    className="bg-blue-500 text-base md:text-xl lg:text-2xl text-white py-2 md:py-3 lg:py-4 
+                                    px-4 md:px-6 lg:px-8 rounded-full font-bold flex items-center justify-center md:justify-start 
+                                    hover:bg-blue-600 animate-pulse-glow mx-auto md:mx-0"
+                                >
+                                    {home.hero.buttonText}
+                                    <span className="ml-2">→</span>
+                                </button>
+                    </a>
+                </div>
+                <div className="w-full md:w-1/2 relative mt-8 md:mt-0" data-aos="fade-left">
                     <img
                         src={home.about.img}
                         alt="Product"
                         className="w-full rounded-3xl shadow-lg"
                     />
                 </div>
-                <div className="w-full md:w-1/2 p-4 flex flex-col justify-start items-baseline gap-4 animate-fade-in">
-                    <h2 className="text-4xl md:text-7xl font-bold text-gray-800 mb-4 font-poppins">
-                        {home.about.additionalContent.title}
-                    </h2>
-                    <p className="text-xl md:text-2xl text-gray-600 mb-4 leading-relaxed tracking-wide">
-                        {home.about.additionalContent.description}
-                    </p>
-                </div>
-            </div>
+            </section>
 
-            <div className="mt-10 px-4 md:px-28 animate-drag">
+            {/* Product Review Section */}
+            <section className="mt-10 px-4 md:px-28 animate-drag">
                 <div className="bg-blue-400 p-4 md:p-6 rounded-lg shadow-md">
                     <div className="flex flex-col md:flex-row items-center justify-between gap-6">
                         <div className="flex flex-col md:flex-row items-center gap-4">
@@ -122,14 +215,14 @@ const Home = () => {
                                 <img
                                     src={footer.logo}
                                     alt="CBD Icon"
-                                    className="w-20 md:w-28 rounded"
+                                    className="w-16 md:w-20 lg:w-28 rounded"
                                 />
                             </div>
                             <div className="text-center md:text-left">
-                                <h2 className="text-3xl md:text-5xl font-bold font-poppins text-white mb-2">
+                                <h2 className="text-2xl md:text-3xl lg:text-5xl font-bold font-poppins text-white mb-2">
                                     {home.specialist.title}
                                 </h2>
-                                <p className="text-base md:text-lg text-white leading-relaxed tracking-wide">
+                                <p className="text-sm md:text-base lg:text-lg text-white leading-relaxed tracking-wide">
                                     {home.specialist.description}
                                 </p>
                             </div>
@@ -145,78 +238,74 @@ const Home = () => {
                         </div>
                     </div>
                 </div>
-            </div>
+            </section>
 
-            <div className="px-4 md:px-28 my-10">
+            {/* video Section */}
+            <section className="px-4 md:px-28 my-10">
                 <div className="aspect-w-16 aspect-h-9">
                     <iframe
-                        className="w-full h-[300px] md:h-[600px] rounded-3xl"
+                        className="w-full h-[300px] md:h-screen rounded-3xl"
                         src={home.specialist.videoUrl}
                         frameBorder="0"
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                         allowFullScreen
                     ></iframe>
                 </div>
-            </div>
+            </section>
 
-            <div className="bg-blue-900 text-white py-10 px-4 md:px-28">
-                <h3 className="text-xl md:text-2xl font-semibold font-poppins text-yellow-300 text-center md:text-left">
-                    {home.trending.subtitle}
-                </h3>
-                <h1 className="text-3xl md:text-4xl font-bold mt-2 font-poppins text-center md:text-left">
-                    {home.trending.title}
-                </h1>
+            {/* Natural Section */}
+            <section>
+                <div className='w-full h-screen bg-gray-100 flex items-center justify-center px-4 md:px-0'>
+                    {/* Video Container with Background */}
+                    <div className='w-full md:w-1/2 h-[500px] md:h-2/3 relative' data-aos="fade-up">
+                        <video
+                            autoPlay
+                            loop
+                            muted
+                            playsInline
+                            className="w-full h-full object-cover rounded-xl shadow-lg"
+                        >
+                            <source src={heroVideo2} type="video/mp4" />
+                            Your browser does not support the video tag.
+                        </video>
 
-                <div className="flex flex-col lg:flex-row justify-between items-center bg-blue-800 mt-8 p-4 md:p-6 rounded-lg">
-                    <div className="text-center md:text-left w-full lg:w-1/2 mb-6 lg:mb-0">
-                        <p className="text-base md:text-lg font-semibold uppercase font-poppins text-yellow-300">
-                            {home.trending.product.badge}
-                        </p>
-                        <h2 className="text-2xl md:text-3xl font-bold mt-2 font-poppins text-white">
-                            {home.trending.product.name}
-                        </h2>
-                        <div className="mt-2">
-                            <span className="text-xl md:text-2xl text-yellow-400">⭐⭐⭐⭐⭐</span>
-                        </div>
-                        <div className="mt-4 text-xl md:text-2xl">
-                            <span className="line-through mr-2 text-gray-400">{home.trending.product.oldPrice}</span>
-                            <span className="text-yellow-300 font-bold">{home.trending.product.price}</span>
-                        </div>
-                        <p className="text-base md:text-lg text-gray-300 mt-1">
-                            {home.trending.product.taxInfo}
-                        </p>
-
-                        <div className="mt-6 border-yellow-300 border-4 border-solid rounded-lg p-4">
-                            <p className="text-white">
-                                {home.trending.product.offerText}
+                        {/* Overlapping Content */}
+                        <div className='absolute bottom-0 right-0 w-full md:w-2/3 bg-white shadow-lg 
+                            rounded-t-3xl md:rounded-3xl transform translate-y-1/3 
+                            md:translate-y-1/4 md:translate-x-1/4'>
+                            <p className='p-4 md:p-6 lg:p-8 text-sm md:text-base lg:text-lg font-poppins text-gray-800  overflow-y-auto'>
+                            {home.product.three}
                             </p>
-                            <div className="flex flex-wrap justify-center md:justify-start gap-4 text-lg md:text-2xl font-semibold mt-2 text-white">
-                                <div>{timeLeft.days} days</div>
-                                <div>{timeLeft.hours} hours</div>
-                                <div>{timeLeft.minutes} minutes</div>
-                                <div>{timeLeft.seconds} seconds</div>
-                            </div>
                         </div>
-                        <button className="mt-4 bg-green-500 text-white py-2 px-4 rounded-lg font-bold hover:bg-green-600 transition-colors duration-300 w-full md:w-auto">
-                            <a href="/products">
-                                {home.trending.product.buttonText}
-                            </a>
-                        </button>
                     </div>
+                </div>
+            </section>
 
-                    <div className="w-full lg:w-1/2">
-                        <img
-                            src={home.hero.img}
-                            alt="CBD Gummies"
-                            className="w-full rounded-lg"
-                        />
-                    </div>
+
+            {/* product style */}
+            <div className='relative h-[60vh] md:h-[80vh] flex items-center justify-center overflow-hidden'>
+                <div className="absolute w-[150%] md:w-[110%] h-16 md:h-24 bg-orange-500 rotate-[23deg] transform z-0">
+                    <marquee behavior="scroll" direction={direction === 'rtl' ? 'right' : 'left'} className="text-2xl md:text-4xl text-white py-4 md:py-6">
+                    {home.product.one}
+                    </marquee>
+                </div>
+                <div className="absolute w-[150%] md:w-[110%] h-16 md:h-24 bg-orange-500 -rotate-[20deg] z-0">
+                    <marquee behavior="scroll" direction={direction === 'rtl' ? 'right' : 'left'} className="text-2xl md:text-4xl text-white py-4 md:py-6">
+                    {home.product.two}
+                    </marquee>
+                </div>
+                <div className='relative z-10 w-3/4 md:w-auto'>
+                    <img src={bottle} alt="Product" className='w-auto md:w-auto h-auto object-contain' />
                 </div>
             </div>
 
-            <div className="flex flex-col md:flex-row justify-between mt-10 px-4 md:px-28 gap-8">
-                <div className="w-full md:w-1/2">
-                    <h2 className="text-3xl md:text-4xl font-bold mb-6 font-poppins">
+            {/* FAQ Section */}
+            <div className="flex flex-col md:flex-row justify-between relative z-10 mt-10 px-4 md:px-28 gap-8">
+                <div className="w-full md:w-1/2 flex items-center justify-center mt-8 md:mt-0" data-aos="fade-right">
+                    <img src={faq} alt="FAQ" className="w-full rounded-3xl shadow-lg" />
+                </div>
+                <div className="w-full md:w-1/2" data-aos="fade-left">
+                    <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-6 font-poppins">
                         Frequently Asked Questions
                     </h2>
                     {home.faq.map((item, index) => (
@@ -241,10 +330,49 @@ const Home = () => {
                         </div>
                     ))}
                 </div>
-                <div className="w-full md:w-1/2 flex items-center justify-center">
-                    <img src={faq} alt="FAQ" className="w-full rounded-3xl shadow-lg" />
-                </div>
             </div>
+
+            {/* Review Section */}
+            <section className="px-4 md:px-28 py-16 bg-white overflow-hidden">
+                <div className="text-center mb-12" data-aos="fade-up">
+                    <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 font-poppins">
+                        {home.testimonials.title}
+                    </h2>
+                    <p className="text-gray-600 text-lg mb-6">
+                        {home.testimonials.subtitle}
+                    </p>
+                </div>
+
+                <div className="flex overflow-hidden">
+                    <div className="flex space-x-8 animate-slide-track">
+                        {[...home.testimonials.items, ...home.testimonials.items].map((testimonial, index) => (
+                            <div key={index} className="flex-shrink-0 w-full md:w-[400px] flex flex-col items-center p-6 bg-gray-50 rounded-lg shadow-lg" data-aos="fade-up" data-aos-delay={index * 100}>
+                                <FaQuoteRight className="text-yellow-400 text-4xl mb-6" />
+                                <p className="text-gray-600 text-lg text-center mb-6">
+                                    {testimonial.quote}
+                                </p>
+                                <img 
+                                    src={testimonial.image} 
+                                    alt={testimonial.name}
+                                    className="w-24 rounded-full shadow-md mb-4" 
+                                />
+                                <h3 className="font-bold text-xl mb-3">{testimonial.name}</h3>
+                                {/* <div className="flex space-x-4">
+                                    <a href="#" className="text-gray-600 hover:text-blue-600">
+                                        <FaFacebookF className="text-xl" />
+                                    </a>
+                                    <a href="#" className="text-gray-600 hover:text-blue-400">
+                                        <FaTwitter className="text-xl" />
+                                    </a>
+                                    <a href="#" className="text-gray-600 hover:text-pink-600">
+                                        <FaInstagram className="text-xl" />
+                                    </a>
+                                </div> */}
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </section>
         </div>
     );
 };

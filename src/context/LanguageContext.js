@@ -13,13 +13,20 @@ export const LanguageProvider = ({ children }) => {
     }, [language]);
 
     const toggleLanguage = () => {
-        setLanguage(prevLang => prevLang === 'ENGLISH' ? 'HI' : 'ENGLISH');
+        // Cycle through languages: ENGLISH -> HI -> AR -> ENGLISH
+        if (language === 'ENGLISH') {
+            setLanguage('HI');
+        } else if (language === 'HI') {
+            setLanguage('AR');
+        } else {
+            setLanguage('ENGLISH');
+        }
     };
 
     return (
         <LanguageContext.Provider value={{
             language,
-            setLanguage,
+            setLanguage, // Make sure setLanguage is included here
             toggleLanguage
         }}>
             {children}

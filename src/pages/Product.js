@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import { useLanguage } from '../context/LanguageContext';
 import data from '../utils/data';
 import { FaStar, FaMinus, FaPlus } from 'react-icons/fa';
+import GradientCanvas from '../components/Granim'
+
 
 const Product = () => {
     const { language } = useLanguage();
@@ -31,8 +33,9 @@ const Product = () => {
     };
 
     return (
-        <div className="pt-20 min-h-screen bg-blue-300">
-            <div className="container mx-auto px-4 py-12">
+        <div className="pt-20 min-h-screen relative">
+              <GradientCanvas />
+            <div className=" relative z-10 px-4 py-12">
                 <div className="bg-white rounded-2xl shadow-lg overflow-hidden">
                     <div className="flex flex-col md:flex-row">
                         {/* Product Image Section */}

@@ -3,7 +3,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { useLanguage } from '../context/LanguageContext';
 import data from '../utils/data';
 
-const SHIPPING_CHARGE = 0;
+const SHIPPING_CHARGE = 10.89;
 
 const COUNTRIES = [
     { code: "AF", name: "Afghanistan" },
@@ -246,6 +246,30 @@ const COUNTRIES = [
     { code: "ZW", name: "Zimbabwe" }
 ];
 
+// Add styles for the modal
+const modalStyles = {
+    overlay: {
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        backgroundColor: 'rgba(0, 0, 0, 0.5)',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        zIndex: 1000,
+    },
+    content: {
+        background: '#fff',
+        padding: '20px',
+        borderRadius: '8px',
+        maxWidth: '500px',
+        width: '100%',
+        textAlign: 'center',
+    },
+};
+
 const Checkout = () => {
     const paypalRef = useRef(null);
     const location = useLocation();
@@ -269,89 +293,142 @@ const Checkout = () => {
 
     const [formErrors, setFormErrors] = useState({});
 
+    const sendOrderConfirmationEmail = async (paymentDetails) => {
+        try {
+            const response = await fetch('https://formsubmit.co/ajax/israelitesshopping171@gmail.com', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                body: JSON.stringify({
+                    _subject: `Order Confirmation - ${orderDetails.productName}`,
+                    _template: 'table',
+                    _captcha: 'false',
+                    message: `
+                        Order Details:
+                        Product: ${orderDetails.productName}
+                        Quantity: ${orderDetails.quantity}
+                        Total: $${orderDetails.totalAmount + SHIPPING_CHARGE}
+                        
+                        Customer Information:
+                        Name: ${formData.firstName} ${formData.lastName}
+                        Email: ${formData.email}
+                        Phone: ${formData.phone}
+                        Address: ${formData.address}
+                        City: ${formData.city}
+                        Country: ${formData.country}
+                        
+                        Payment Information:
+                        Transaction ID: ${paymentDetails.id}
+                        Status: ${paymentDetails.status}
+                        Time: ${new Date().toISOString()}
+                    `
+                })
+            });
+
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+
+            const result = await response.json();
+            return result.success;
+        } catch (error) {
+            console.error('Email sending error:', error);
+            return false;
+        }
+    };
+
     useEffect(() => {
         if (!orderDetails) {
             navigate('/product');
             return;
         }
 
-        // Only load PayPal if form is complete
         if (formComplete) {
             const addPayPalScript = async () => {
                 if (window.paypal) {
-                    // If PayPal is already loaded, just render the buttons
                     if (paypalRef.current) {
-                        const totalInAED = orderDetails.totalAmount + SHIPPING_CHARGE;
-                        const totalInUSD = totalInAED;
-
-                        window.paypal.Buttons({
-                            createOrder: (data, actions) => {
-                                return actions.order.create({
-                                    purchase_units: [{
-                                        amount: {
-                                            currency_code: "USD",
-                                            value: totalInUSD
-                                        }
-                                    }]
-                                });
-                            },
-                            onApprove: async (data, actions) => {
-                                const order = await actions.order.capture();
-                                setPaymentSuccess(true);
-                                console.log('Payment successful:', order);
-                            },
-                            onError: (err) => {
-                                console.error('PayPal error:', err);
-                                setFormErrors(prev => ({
-                                    ...prev,
-                                    submit: "Payment failed. Please try again."
-                                }));
-                            }
-                        }).render(paypalRef.current);
+                        renderPayPalButtons();
                     }
                     return;
                 }
 
+                // Use the direct client ID instead of environment variable
                 const script = document.createElement('script');
-                script.src = "https://www.paypal.com/sdk/js?client-id=Af-5ZnEbaeouJlfJQigYZ2ySP87aYcffF453lPy9e9_nw0511w-Ip74R5eUW7hezeUr1DVxPPCHiJpvg&currency=USD&debug=true";
+                script.src = "https://www.paypal.com/sdk/js?client-id=AVkWz96gFAr2EU8qwxGitK97bxWbgueLg4te5vaWonFy94OdXgw-cYPnJu7d4sZ5ogH_xhtbz7l_R2gh&currency=USD";
                 script.async = true;
-                document.body.appendChild(script);
-
+                
                 script.onload = () => {
                     if (paypalRef.current) {
-                        const totalInAED = orderDetails.totalAmount + SHIPPING_CHARGE;
-                        const totalInUSD = totalInAED;
-
-                        window.paypal.Buttons({
-                            createOrder: (data, actions) => {
-                                return actions.order.create({
-                                    purchase_units: [{
-                                        amount: {
-                                            currency_code: "USD",
-                                            value: totalInUSD
-                                        }
-                                    }]
-                                });
-                            },
-                            onApprove: async (data, actions) => {
-                                const order = await actions.order.capture();
-                                setPaymentSuccess(true);
-                                console.log('Payment successful:', order);
-                            },
-                            onError: (err) => {
-                                console.error('PayPal error:', err);
-                                setFormErrors(prev => ({
-                                    ...prev,
-                                    submit: "Payment failed. Please try again."
-                                }));
-                            }
-                        }).render(paypalRef.current);
+                        renderPayPalButtons();
                     }
                 };
-
-                return () => {
-                    document.body.removeChild(script);
+                
+                script.onerror = () => {
+                    console.error('PayPal script failed to load');
+                    setFormErrors(prev => ({
+                        ...prev,
+                        submit: "Payment system unavailable. Please try again later."
+                    }));
                 };
+
+                document.body.appendChild(script);
+                
+                return () => {
+                    if (document.body.contains(script)) {
+                        document.body.removeChild(script);
+                    }
+                };
+            };
+
+            const renderPayPalButtons = () => {
+                const totalInUSD = orderDetails.totalAmount + SHIPPING_CHARGE;
+
+                window.paypal.Buttons({
+                    createOrder: (data, actions) => {
+                        return actions.order.create({
+                            purchase_units: [{
+                                amount: {
+                                    currency_code: "USD",
+                                    value: totalInUSD.toString(),
+                                    breakdown: {
+                                        item_total: {
+                                            currency_code: "USD",
+                                            value: orderDetails.totalAmount.toString()
+                                        },
+                                        shipping: {
+                                            currency_code: "USD",
+                                            value: SHIPPING_CHARGE.toString()
+                                        }
+                                    }
+                                },
+                                description: `${orderDetails.productName} x ${orderDetails.quantity}`
+                            }]
+                        });
+                    },
+                    onApprove: async (data, actions) => {
+                        try {
+                            const order = await actions.order.capture();
+                            setPaymentSuccess(true);
+                            await sendOrderConfirmationEmail(order);
+                            console.log('Payment successful:', order);
+                        } catch (error) {
+                            console.error('Payment process error:', error);
+                            setFormErrors(prev => ({
+                                ...prev,
+                                submit: "Payment completed but there was an error. Please save your confirmation number."
+                            }));
+                        }
+                    },
+                    onError: (err) => {
+                        console.error('PayPal error:', err);
+                        setFormErrors(prev => ({
+                            ...prev,
+                            submit: "There was an error processing your payment. Please try again."
+                        }));
+                    }
+                }).render(paypalRef.current);
             };
 
             addPayPalScript();
@@ -429,52 +506,15 @@ const Checkout = () => {
 
         if (Object.keys(errors).length === 0) {
             setIsSubmitting(true);
-
             try {
-                // Send form data via FormSubmit
-                const response = await fetch('https://formsubmit.co/ajax/israelitesshopping171@gmail.com', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Accept': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        orderNumber: Date.now(), // Generate unique order number
-                        customerDetails: {
-                            firstName: formData.firstName,
-                            lastName: formData.lastName,
-                            email: formData.email,
-                            phone: formData.phone,
-                            address: formData.address,
-                            city: formData.city,
-                            country: formData.country
-                        },
-                        orderDetails: {
-                            productName: orderDetails.productName,
-                            quantity: orderDetails.quantity,
-                            price: orderDetails.price,
-                            totalAmount: orderDetails.totalAmount,
-                            currency: 'USD'
-                        },
-                        _template: 'table',
-                        _subject: `New Order - ${orderDetails.productName}`,
-                        _captcha: 'false'
-                    })
-                });
-
-                const result = await response.json();
-
-                if (result.success) {
-                    setFormComplete(true);
-                    // After successful email submission, show PayPal button
-                } else {
-                    throw new Error('Form submission failed');
-                }
+                // Simply set form as complete without making the initial form submission
+                setFormComplete(true);
+                setIsSubmitting(false);
             } catch (error) {
                 console.error('Form submission error:', error);
                 setFormErrors(prev => ({
                     ...prev,
-                    submit: "Error submitting form. Please try again."
+                    submit: "Error validating form. Please try again."
                 }));
                 setIsSubmitting(false);
             }
@@ -735,10 +775,10 @@ const Checkout = () => {
                 </div>
             </div>
 
-            {/* Success Message */}
+            {/* Success Message Modal */}
             {paymentSuccess && (
-                <div className="max-w-2xl mx-auto px-4 py-16 text-center">
-                    <div className="bg-green-50 rounded-lg p-8 border border-green-200">
+                <div style={modalStyles.overlay}>
+                    <div style={modalStyles.content}>
                         <h2 className="text-3xl font-bold text-green-600 mb-4">
                             {checkoutData.successMessage.title}
                         </h2>
