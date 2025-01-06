@@ -86,7 +86,7 @@ const Home = () => {
         <div className={`home font-lato bg-gray-100 text-gray-900 ${direction === 'rtl' ? 'rtl' : ''}`} dir={direction}>
             {/* Second Hero Section with Local Video */}
             {/* Header Section */}
-            <section className='relative min-h-screen'>
+            <section className='relative min-h-[120vh]'>
                 <div className='absolute inset-0'>
                     <video
                         autoPlay
@@ -99,7 +99,7 @@ const Home = () => {
                         Your browser does not support the video tag.
                     </video>
                 </div>
-                <div className='absolute inset-0 bg-black bg-opacity-80'></div>
+                <div className='absolute inset-0 bg-black bg-opacity-20'></div>
                 <div className='relative z-10 px-4 md:px-28 py-20 min-h-screen flex items-center'>
                     <div className="flex flex-col md:flex-row items-center justify-between animate-fade-in w-full">
                         <div className="w-full text-center md:text-start" data-aos="fade-up">
@@ -179,7 +179,7 @@ const Home = () => {
             {/* About Section */}
             <section className="flex flex-col md:flex-row justify-between gap-10 mt-8 px-4 py-10 md:px-28">
                 <div className="w-full md:w-1/2 p-4 flex flex-col justify-start items-baseline gap-4 animate-fade-in" data-aos="fade-up">
-                    <h2 className="text-3xl md:text-5xl lg:text-7xl font-bold text-gray-800 mb-4 font-poppins"
+                    <h2 className="text-[5vw] leading-[3vw] font-bold text-gray-800 mb-4 font-poppins"
                         dangerouslySetInnerHTML={{ __html: home.about.additionalContent.title }}>
                     </h2>
                     <p className="text-lg md:text-xl lg:text-2xl text-gray-600 mb-4 leading-relaxed tracking-wide"
@@ -254,36 +254,34 @@ const Home = () => {
             </section>
 
             {/* Natural Section */}
-            <section>
-                <div className='w-full h-screen bg-gray-100 flex items-center justify-center px-4 md:px-0'>
-                    {/* Video Container with Background */}
-                    <div className='w-full md:w-1/2 h-[500px] md:h-2/3 relative' data-aos="fade-up">
-                        <video
-                            autoPlay
-                            loop
-                            muted
-                            playsInline
-                            className="w-full h-full object-cover rounded-xl shadow-lg"
-                        >
-                            <source src={heroVideo2} type="video/mp4" />
-                            Your browser does not support the video tag.
-                        </video>
-
-                        {/* Overlapping Content */}
-                        <div className='absolute bottom-0 right-0 w-full md:w-2/3 bg-white shadow-lg 
-                            rounded-t-3xl md:rounded-3xl transform translate-y-1/3 
-                            md:translate-y-1/4 md:translate-x-1/4'>
-                            <p className='p-4 md:p-6 lg:p-8 text-sm md:text-base lg:text-lg font-poppins text-gray-800  overflow-y-auto'>
-                            {home.product.three}
-                            </p>
+            <div>
+            <section id="benefits" className="py-20 bg-white">
+                    <div className=" px-4 sm:px-6 lg:px-8">
+                        <div className="text-center mb-16">
+                        <h2 className="text-6xl font-bold text-gray-900 mb-4">
+                            Why Choose BeyondSlim?
+                        </h2>
+                        <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+                            Our revolutionary formula combines science and nature to deliver exceptional results
+                        </p>
+                        </div>
+                        
+                        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                        {home.benefits.map((benefit, index) => (
+                            <div key={index} className="p-6 bg-white my-5 rounded-xl shadow-md hover:shadow-md transition">
+                            <div className="mb-4">{benefit.icon}</div>
+                            <h3 className="text-xl font-semibold text-gray-900 mb-2">{benefit.title}</h3>
+                            <p className="text-gray-600">{benefit.description}</p>
+                            </div>
+                        ))}
                         </div>
                     </div>
-                </div>
-            </section>
+                    </section>
+            </div>
 
 
             {/* product style */}
-            <div className='relative h-[60vh] md:h-[80vh] flex items-center justify-center overflow-hidden'>
+            {/* <div className='relative h-[60vh] md:h-[80vh] flex items-center justify-center overflow-hidden'>
                 <div className="absolute w-[150%] md:w-[110%] h-16 md:h-24 bg-orange-500 rotate-[23deg] transform z-0">
                     <marquee behavior="scroll" direction={direction === 'rtl' ? 'right' : 'left'} className="text-2xl md:text-4xl text-white py-4 md:py-6">
                     {home.product.one}
@@ -297,10 +295,43 @@ const Home = () => {
                 <div className='relative z-10 w-3/4 md:w-auto'>
                     <img src={bottle} alt="Product" className='w-auto md:w-auto h-auto object-contain' />
                 </div>
-            </div>
+            </div> */}
+
+
+            <section id="howitworks" className="py-20 bg-blue-50">
+                <div className="px-4 sm:px-6 lg:px-8">
+                    <div className="text-center mb-16">
+                    <h2 className="text-7xl font-bold text-red-400 mb-4">
+                        {home.howItWorks.title}
+                    </h2>
+                    <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+                    {home.howItWorks.subtitle}
+                    </p>
+                    </div>
+                    
+                    <div className="grid md:grid-cols-3 gap-8">
+                    {home.howItWorks.steps.map((item, index) => (
+                        <div key={index} className="relative">
+                        <div className="aspect-w-16 aspect-h-9 mb-6">
+                            <img 
+                            src={item.image} 
+                            alt={item.title}
+                            className="rounded-lg object-cover w-full h-64"
+                            />
+                        </div>
+                        <div className="absolute -top-4 -left-4 w-12 h-12 bg-blue-600 text-white rounded-full flex items-center justify-center text-xl font-bold">
+                            {item.step}
+                        </div>
+                        <h3 className="text-xl font-semibold text-gray-900 mb-2">{item.title}</h3>
+                        <p className="text-gray-600">{item.description}</p>
+                        </div>
+                    ))}
+                    </div>
+                </div>
+            </section>
 
             {/* FAQ Section */}
-            <div className="flex flex-col md:flex-row justify-between relative z-10 mt-10 px-4 md:px-28 gap-8">
+            <div className="flex bg-blue-50 flex-col md:flex-row justify-between relative z-10 mt-10 px-4 md:px-28 gap-8">
                 <div className="w-full md:w-1/2 flex items-center justify-center mt-8 md:mt-0" data-aos="fade-right">
                     <img src={faq} alt="FAQ" className="w-full rounded-3xl shadow-lg" />
                 </div>
@@ -333,7 +364,7 @@ const Home = () => {
             </div>
 
             {/* Review Section */}
-            <div className="px-4 md:px-28 py-16 bg-white overflow-hidden">
+            {/* <div className="px-4 md:px-28 py-16 bg-white overflow-hidden">
                 <div className="text-center mb-12">
                     <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 font-poppins">
                         {home.testimonials.title}
@@ -359,24 +390,89 @@ const Home = () => {
                                     className="w-24 rounded-full shadow-md mb-4" 
                                 />
                                 <h3 className="font-bold text-xl mb-3">{testimonial.name}</h3>
-                                {/* <div className="flex space-x-4">
-                                    <a href="#" className="text-gray-600 hover:text-blue-600">
-                                        <FaFacebookF className="text-xl" />
-                                    </a>
-                                    <a href="#" className="text-gray-600 hover:text-blue-400">
-                                        <FaTwitter className="text-xl" />
-                                    </a>
-                                    <a href="#" className="text-gray-600 hover:text-pink-600">
-                                        <FaInstagram className="text-xl" />
-                                    </a>
-                                </div> */}
+                                <div className="flex items-center justify-center space-x-1 text-yellow-300">
+                                    <span className="font-bold text-lg">5.0</span>
+                                    <div className="text-sm flex items-center">
+                                        <span>★★★★★</span>
+                                    </div>
+                                </div>
                             </div>
                         ))}
                     </div>
                 </div>
-            </div>
+            </div> */}
+            {/* Review Section */}
+<div className="px-4 md:px-28 py-16 bg-blue-50 overflow-hidden">
+    <div className="text-center mb-12">
+        <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 font-poppins">
+            {home.testimonials.title}
+        </h2>
+        <p className="text-gray-600 text-lg mb-6">
+            {home.testimonials.subtitle}
+        </p>
+    </div>
+
+    <div className="flex flex-col md:flex-row md:space-x-8 space-y-8 md:space-y-0 overflow-x-auto md:overflow-hidden relative">
+        <div className="hidden md:block h-full w-1/5 z-10 absolute top-0 bg-gradient-to-r from-white to-transparent"></div>
+        <div className="hidden md:block h-full w-1/5 z-10 absolute top-0 right-0 bg-gradient-to-r from-transparent to-white"></div>
+        <div className="flex space-x-8 animate-slide-track">
+            {[...home.testimonials.items, ...home.testimonials.items].map((testimonial, index) => (
+                <div key={index} className="flex-shrink-0 w-full md:w-[400px] flex flex-col items-center p-6 bg-gray-50 rounded-lg shadow-lg" 
+                    data-aos="fade-up" data-aos-delay={index * 100}>
+                    <FaQuoteRight className="text-yellow-400 text-4xl mb-6" />
+                    <p className="text-gray-600 text-lg text-center mb-6">
+                        {testimonial.quote}
+                    </p>
+                    <div className="flex items-center justify-center space-x-2">
+                        <span className="font-bold text-lg">{testimonial.star}</span>
+                        <div className="text-sm flex items-center">
+                            {[...Array(5)].map((_, i) => (
+                                <span key={i} className={`text-2xl ${i < Math.floor(testimonial.star) ? 'text-yellow-400' : 'text-gray-300'}`}>
+                                    ★
+                                </span>
+                            ))}
+                        </div>
+                    </div>
+                    <img 
+                        src={testimonial.image} 
+                        alt={testimonial.name}
+                        className="w-24 h-24 object-cover rounded-full shadow-md mb-4" 
+                    />
+                    <h3 className="font-bold text-xl mb-3">{testimonial.name}</h3>
+                </div>
+            ))}
+        </div>
+    </div>
+</div>
         </div>
     );
 };
 
 export default Home;
+
+            // <section>
+            //     <div className='w-full h-screen bg-gray-100 flex items-center justify-center px-4 md:px-0'>
+            //         {/* Video Container with Background */}
+            //         <div className='w-full md:w-1/2 h-[500px] md:h-2/3 relative' data-aos="fade-up">
+            //             <video
+            //                 autoPlay
+            //                 loop
+            //                 muted
+            //                 playsInline
+            //                 className="w-full h-full object-cover rounded-xl shadow-lg"
+            //             >
+            //                 <source src={heroVideo2} type="video/mp4" />
+            //                 Your browser does not support the video tag.
+            //             </video>
+
+            //             {/* Overlapping Content */}
+            //             <div className='absolute bottom-0 right-0 w-full md:w-2/3 bg-white shadow-lg 
+            //                 rounded-t-3xl md:rounded-3xl transform translate-y-1/3 
+            //                 md:translate-y-1/4 md:translate-x-1/4'>
+            //                 <p className='p-4 md:p-6 lg:p-8 text-sm md:text-base lg:text-lg font-poppins text-gray-800  overflow-y-auto'>
+            //                 {home.product.three}
+            //                 </p>
+            //             </div>
+            //         </div>
+            //     </div>
+            // </section>

@@ -19,6 +19,7 @@ import three from '../assets/t_three.svg';
 import four from '../assets/t_four.png';
 import five from '../assets/hala.png';
 import bottle from '../assets/product_bot.png';
+import { Target, Droplets, Clock, Shield } from 'lucide-react';
 
 const data = {
     ENGLISH: {
@@ -105,52 +106,62 @@ const data = {
                     {
                         quote: "Beyond Slim has given me visible results in just a few weeks. It’s the boost I needed to feel confident again!",
                         name: "Ram",
-                        image: "https://t4.ftcdn.net/jpg/06/21/02/65/240_F_621026535_CaXJzFdA4SAcO8YwYhThxzZ116wIkxWP.jpg",
+                        image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT9us0MxB35Wv3z03TJFrxhub-WyxqpBKAsjQ&s",
+                        star: 4.9
                     },
                     {
                         quote: "I was skeptical at first, but Beyond Slim truly delivers. The natural ingredients make it a product I can trust.",
                         name: "vikram",
-                        image: "https://t3.ftcdn.net/jpg/10/66/68/96/240_F_1066689635_FMCMRi9EVzawgC9ZItv8Lba0HYeTi9GV.jpg"
+                        image: "https://t3.ftcdn.net/jpg/10/66/68/96/240_F_1066689635_FMCMRi9EVzawgC9ZItv8Lba0HYeTi9GV.jpg",
+                        star: 4.5
                     },
                     {
                         quote: "The best part about Beyond Slim is how gentle yet effective it is. I can see and feel the difference already!",
                         name: "Aravind",
-                        image: "https://t4.ftcdn.net/jpg/07/71/79/75/240_F_771797574_9NkoAGxNv3S49BQ99YLCz9GsiTvUYMw6.jpg"
+                        image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSxszw7q9S8KrpiZPwaJOPfmQRDrryj3a4dbaqbG6pa1qPHAqTa2cAeF5ZC8RmS6w-QAXg&usqp=CAU",
+                        star: 5.0
                     },
                     {
                         quote: "This product has been a life-changer. Beyond Slim helped me achieve my goals without compromising my health.",
                         name: "Tawfeeq",
-                        image: "https://t4.ftcdn.net/jpg/02/32/05/69/240_F_232056937_9HLOlD9DcEvEAppLCn908zkeUeMZKnPJ.jpg"
+                        image: "https://t4.ftcdn.net/jpg/02/32/05/69/240_F_232056937_9HLOlD9DcEvEAppLCn908zkeUeMZKnPJ.jpg",
+                        star: 4.1
                     },
                     {
                         quote: "I love how Beyond Slim not only targets fat but also improves skin elasticity. My skin feels so much healthier!",
                         name: "Harsha",
-                        image: "https://t4.ftcdn.net/jpg/07/07/79/35/240_F_707793538_TjL9fo0RsRNf8jD2n2tmCqHwCvh5dbY4.jpg"
+                        image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTzzvbhLn-RYCJZmspW_Q_S5t4EQkb1jDVW1TUa-k7hbR1n_nq7aFmHqUUJiXGdz72Iqhc&usqp=CAU",
+                        star: 3.5
                     },
                     {
                         quote: "I’ve recommended Beyond Slim to all my friends. It’s natural, effective, and has exceeded my expectations.",
                         name: "Imran",
-                        image: "https://t3.ftcdn.net/jpg/06/11/89/50/240_F_611895025_3sEm547mzOF1IKMBAVa4fJ7Ifq4z8Eye.jpg"
+                        image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTZ3tm3wzrIkSZBSz6BeTFmPyN4nYE4b54SjNtynrLHo8jTRN2ouciRHjvIWF_5jit1lxU&usqp=CAU",
+                        star: 4.8
                     },
                     {
                         quote: "Beyond Slim is worth every penny. The results are real, and the product is so easy to incorporate into my routine.",
                         name: "Benjamin Garcia",
-                        image: "https://t3.ftcdn.net/jpg/04/06/20/42/240_F_406204266_q7Sf6hfF8xjASNiFZdQL0NOsToue9bgq.jpg"
+                        image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRsXwVlyhW80yril13EFEo_qG3xw-pEVw0d2kXm-qlNBwT2MNdufy5jSSdOPkUTffmH_6Q&usqp=CAU",
+                        star: 4.9
                     },
                     {
                         quote: "This is the first product that actually worked for me. Beyond Slim made a noticeable difference in just weeks.",
                         name: "Mia Taylor",
-                        image: "https://t3.ftcdn.net/jpg/07/66/92/80/240_F_766928095_NOXtogD59gAPM2Y75qWidDvq0IgB2UUr.jpg"
+                        image: "https://t3.ftcdn.net/jpg/07/66/92/80/240_F_766928095_NOXtogD59gAPM2Y75qWidDvq0IgB2UUr.jpg",
+                        star: 4.7
                     },
                     {
                         quote: "It’s rare to find a product that’s both natural and effective. Beyond Slim checks all the boxes for me!",
                         name: "Alexander Martinez",
-                        image: "https://t3.ftcdn.net/jpg/04/99/60/42/240_F_499604283_HJTyA6RedE5QZAPghy0cVeapYuWeJ7mE.jpg"
+                        image: "https://t3.ftcdn.net/jpg/04/99/60/42/240_F_499604283_HJTyA6RedE5QZAPghy0cVeapYuWeJ7mE.jpg",
+                        star: 4.6
                     },
                     {
                         quote: "Beyond Slim is a total game-changer. The natural formula is effective and gentle—exactly what I was looking for.",
                         name: "Shahbaz",
-                        image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRmvyLcZdrOQdZXQw3qAHcnuLgk87kfgD8WXw&s"
+                        image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRmvyLcZdrOQdZXQw3qAHcnuLgk87kfgD8WXw&s",
+                        star: 4.9
                     }
                 ]
                 
@@ -160,7 +171,52 @@ const data = {
                 two: "Experience the magic of Beyond Slim! 🌿 Target stubborn fat, boost skin elasticity, and enhance overall beauty and health with 100% natural ingredients. Transform your wellness journey today! ✨🔥",
                 three: "Experience the power of 100% natural ingredients with Beyond Slim, your ultimate partner in wellness and beauty. Carefully crafted to target stubborn fat areas, this clinically proven formula works wonders in enhancing skin elasticity, leaving your skin firmer, smoother, and radiant. Beyond Slim isn’t just about looking great—it’s about feeling amazing, too. Eco-friendly and cruelty-free, this non-greasy, easy-to-use solution supports your journey to holistic health while caring for the planet. Embrace the transformation and let Beyond Slim redefine your self-care routine."
             },
-            
+            benefits:[
+                {
+                  icon: <Target className="h-8 w-8 text-blue-600" />,
+                  title: "Targeted Fat Reduction",
+                  description: "Precisely targets stubborn fat deposits through advanced body-mapping technology"
+                },
+                {
+                  icon: <Droplets className="h-8 w-8 text-blue-600" />,
+                  title: "Natural Ingredients",
+                  description: "100% natural botanical extracts that work in harmony with your body"
+                },
+                {
+                  icon: <Clock className="h-8 w-8 text-blue-600" />,
+                  title: "Fast Acting Formula",
+                  description: "See visible results in as little as 4 weeks with consistent use"
+                },
+                {
+                  icon: <Shield className="h-8 w-8 text-blue-600" />,
+                  title: "Clinically Tested",
+                  description: "Dermatologically tested and proven safe for all skin types"
+                }
+              ],
+            howItWorks: {
+                title: "How BeyondSlim Works",
+                subtitle: "Our unique three-step process helps you achieve your body goals naturally",
+                steps: [
+                    {
+                        step: "1",
+                        title: "Apply",
+                        description: "Gently massage the oil onto target areas using circular motions",
+                        image: "https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&fit=crop&w=800&q=80"
+                    },
+                    {
+                        step: "2",
+                        title: "Absorb",
+                        description: "Allow the oil to fully absorb into your skin for maximum effectiveness",
+                        image: "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&w=800&q=80"
+                    },
+                    {
+                        step: "3",
+                        title: "Transform",
+                        description: "Experience the transformation as the natural ingredients work their magic",
+                        image: "https://images.unsplash.com/photo-1518310383802-640c2de311b2?auto=format&fit=crop&w=800&q=80"
+                    }
+                ]
+            }
         },
         footer: {
             logo: logo,
@@ -654,6 +710,30 @@ const data = {
                 two: "बियॉन्ड स्लिम के जादू का अनुभव करें! 🌿 जिद्दी वसा को लक्षित करें, त्वचा की लोच बढ़ाएं, और 100% प्राकृतिक अवयवों के साथ समग्र सुंदरता और स्वास्थ्य को बढ़ाएं। आज ही अपनी स्वास्थ्य यात्रा को रूपांतरित करें! ✨🔥",
                 three: "100% प्राकृतिक सामग्रियों की शक्ति का अनुभव करें बियॉन्ड स्लिम के साथ, जो आपके स्वास्थ्य और सुंदरता का अंतिम साथी है। जिद्दी चर्बी वाले क्षेत्रों को लक्षित करने के लिए विशेष रूप से तैयार की गई यह क्लिनिकली प्रमाणित फॉर्मूला त्वचा की लोच को बढ़ाने में अद्भुत काम करता है, जिससे आपकी त्वचा अधिक टाइट, स्मूथ और चमकदार बनती है। बियॉन्ड स्लिम केवल शानदार दिखने के लिए नहीं है—यह आपको अद्भुत महसूस कराने के लिए भी है। पर्यावरण के अनुकूल और क्रूरता-मुक्त, यह नॉन-ग्रीसी और उपयोग में आसान समाधान आपके समग्र स्वास्थ्य की यात्रा का समर्थन करता है और साथ ही पृथ्वी की देखभाल करता है। बदलाव को अपनाएं और बियॉन्ड स्लिम को अपने आत्म-देखभाल रूटीन को पुनर्परिभाषित करने दें।"
             },
+            howItWorks: {
+                title: "How BeyondSlim Works",
+                subtitle: "Our unique three-step process helps you achieve your body goals naturally",
+                steps: [
+                    {
+                        step: "1",
+                        title: "Apply",
+                        description: "Gently massage the oil onto target areas using circular motions",
+                        image: "https://images.unsplash.com/photo-1620916566398-"
+                    },
+                    {
+                        step: "2",
+                        title: "Absorb",
+                        description: "Allow the oil to fully absorb into your skin for maximum effectiveness",
+                        image: "https://images.unsplash.com/photo-1620916566398-"
+                    },
+                    {
+                        step: "3",
+                        title: "Transform",
+                        description: "Experience the transformation as the natural ingredients work their magic",
+                        image: "https://images.unsplash.com/photo-1620916566398-"
+                    }
+                ]
+            }
         },        
         footer: {
             logo: logo,
@@ -1145,6 +1225,30 @@ const data = {
                 two: "اختبر سحر بيوند سليم! 🌿 استهدف الدهون العنيدة، وزيِّن مرونة البشرة، وحسّن الجمال والصحة العامة باستخدام مكونات طبيعية 100%. حوّل رحلتك الصحية اليوم! ✨🔥",
                 three: "اكتشف قوة المكونات الطبيعية بنسبة 100% مع بيوند سليم، شريكك المثالي للصحة والجمال. صُمم بعناية لاستهداف المناطق العنيدة من الدهون، ويعمل هذا التركيبة المثبتة سريريًا على تعزيز مرونة الجلد، مما يجعل بشرتك أكثر تماسكًا ونعومة وإشراقًا. بيوند سليم ليس فقط لجعل مظهرك رائعًا - بل هو لتجعلك تشعر بالروعة أيضًا. صديق للبيئة وخالٍ من القسوة، هذا الحل غير الدهني وسهل الاستخدام يدعم رحلتك نحو صحة شاملة مع العناية بالكوكب. احتضن التغيير ودع بيوند سليم يعيد تعريف روتين العناية الذاتية الخاص بك."
             },
+            howItWorks: {
+                title: "How BeyondSlim Works",
+                subtitle: "Our unique three-step process helps you achieve your body goals naturally",
+                steps: [
+                    {
+                        step: "1",
+                        title: "Apply",
+                        description: "Gently massage the oil onto target areas using circular motions",
+                        image: "https://images.unsplash.com/photo-1620916566398-"
+                    },
+                    {
+                        step: "2",
+                        title: "Absorb",
+                        description: "Allow the oil to fully absorb into your skin for maximum effectiveness",
+                        image: "https://images.unsplash.com/photo-1620916566398-"
+                    },
+                    {
+                        step: "3",
+                        title: "Transform",
+                        description: "Experience the transformation as the natural ingredients work their magic",
+                        image: "https://images.unsplash.com/photo-1620916566398-"
+                    }
+                ]
+            }
         },
         footer: {
             logo: logo,
