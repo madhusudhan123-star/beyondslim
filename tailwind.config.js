@@ -2,6 +2,9 @@ module.exports = {
   content: ["./src/**/*.{js,jsx,ts,tsx}"],
   theme: {
     extend: {
+      fontFamily: {
+        'dm-serif': ['"DM Serif Text"', 'serif'],
+      },
       colors: {
         primary: {
           400: '#60A5FA',
