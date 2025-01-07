@@ -258,7 +258,7 @@ const Home = () => {
                 >
                     {isLoading && <LoadingSpinner />}
                     <iframe
-                        className={`w-full h-full md:h-screen rounded-3xl ${isLoading ? 'opacity-0' : 'opacity-100'}`}
+                        className={`w-full h-screen md:h-screen rounded-3xl ${isLoading ? 'opacity-0' : 'opacity-100'}`}
                         src={`${home.specialist.videoUrl}?enablejsapi=1`}
                         title="Product demonstration video"
                         frameBorder="0"
