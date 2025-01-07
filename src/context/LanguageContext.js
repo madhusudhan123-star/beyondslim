@@ -10,6 +10,8 @@ export const LanguageProvider = ({ children }) => {
 
     useEffect(() => {
         localStorage.setItem('language', language);
+        // Update document direction
+        document.documentElement.dir = language === 'AR' ? 'rtl' : 'ltr';
     }, [language]);
 
     const toggleLanguage = () => {
@@ -41,3 +43,16 @@ export const useLanguage = () => {
     }
     return context;
 };
+
+function App() {
+    const { language } = useLanguage();
+    const dir = language === 'AR' ? 'rtl' : 'ltr';
+
+    return (
+        <LanguageProvider>
+            <div dir={dir} className='overflow-x-hidden'>
+                {/* ...existing code... */}
+            </div>
+        </LanguageProvider>
+    );
+}

@@ -77,9 +77,17 @@ const Navbar = () => {
         { code: 'AR', name: 'عربي' }
     ];
 
+    const getTextAlignment = () => {
+        return language === 'AR' ? 'text-right' : 'text-left';
+    };
+
+    const getMarginDirection = () => {
+        return language === 'AR' ? 'ml-auto' : 'mr-auto';
+    };
+
     return (
         <nav className={`fixed w-full z-50 transition-all duration-300 ${getNavbarBackground()} `}>
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className={`max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 ${getTextAlignment()}`}>
                 <div className="flex items-center justify-between h-16">
                     {/* Logo */}
                     <div className="flex-shrink-0">
@@ -98,7 +106,9 @@ const Navbar = () => {
                             <Link
                                 key={link.path}
                                 to={link.path}
-                                className={`text-base font-medium transition-colors duration-200 ${location.pathname === link.path
+                                className={`text-base font-medium transition-colors duration-200 
+                                ${language === 'AR' ? 'ml-8' : 'mr-8'} 
+                                ${location.pathname === link.path
                                     ? 'text-blue-600'
                                     : `${getLinkTextColor()} hover:text-blue-600`
                                     }`}
@@ -118,7 +128,7 @@ const Navbar = () => {
                             </button>
 
                             {dropdownOpen && (
-                                <div className="absolute right-0 mt-2 w-24 bg-white rounded-md shadow-lg py-1">
+                                <div className={`absolute ${language === 'AR' ? 'left-0' : 'right-0'} mt-2 w-24 bg-white rounded-md shadow-lg py-1`}>
                                     {languages.map((lang) => (
                                         <button
                                             key={lang.code}

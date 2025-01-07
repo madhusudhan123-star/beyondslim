@@ -6,6 +6,24 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=DM+Serif+Text:ital@0;1&display=swap');
 
+:root[dir="ltr"] {
+  --space-start: 0;
+  --space-end: auto;
+}
+
+:root[dir="rtl"] {
+  --space-start: auto;
+  --space-end: 0;
+}
+
+.hover\:pause-animation:hover {
+    animation-play-state: paused;
+  }
+  
+  /* Optional: Add smooth transition when animation pauses */
+  .hover\:pause-animation {
+    transition: all 0.3s ease;
+  }
 
 .backgroundimg {
     background-image: url('../src/assets/background.jpeg');
@@ -36,6 +54,10 @@
     font-family: "Poppins", serif;
     font-weight: 400;
     font-style: normal;
+}
+
+.left{
+    direction: ltr !important
 }
 
 @keyframes float {
@@ -177,7 +199,8 @@
 
 .animate-slide-track {
   display: flex;
-  animation: slide 100s linear infinite;
+  width: max-content;
+  animation: slide 60s linear infinite;
 }
 
 .animate-slide-track:hover {
@@ -266,11 +289,29 @@
 
 /* Fix animations for RTL */
 .rtl .animate-slide-track {
-    /* animation-direction: reverse; */
-    animation-play-state: paused
+    /* animation-play-state: paused */
 }
 
 /* Fix icon rotations for RTL */
 .rtl .rotate-180 {
     transform: rotate(-180deg);
 }
+
+@keyframes slide {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-50%);
+    }
+  }
+  
+  .animate-slide-track {
+    display: flex;
+    width: max-content;
+    animation: slide 60s linear infinite;
+  }
+  
+  .animate-slide-track:hover {
+    animation-play-state: paused;
+  }

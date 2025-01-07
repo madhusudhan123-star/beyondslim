@@ -30,12 +30,6 @@ const Home = () => {
     const home = data[language].home;
     const footer = data[language].footer;
     const buttonRef = useRef(null);
-    const [timeLeft, setTimeLeft] = useState({
-        days: 0,
-        hours: 0,
-        minutes: 0,
-        seconds: 0,
-    });
     const [faqOpen, setFaqOpen] = useState(null);
     const slides = [home.about.img1, home.about.img3];
     const [currentSlide, setCurrentSlide] = useState(0);
@@ -52,68 +46,12 @@ const Home = () => {
     const nextSlide = () => {
         setCurrentSlide(currentSlide === slides.length - 1 ? 0 : currentSlide + 1);
     };
+    const getScrollDirection = () => {
+        return language === 'AR' ? 'animate-scrollRight' : 'animate-scrollLeft';
+    };
 
     useEffect(() => {
         AOS.init({ duration: 500 });
-    }, []);
-
-    useEffect(() => {
-        const targetDate = new Date().getTime() + 24 * 60 * 60 * 1000;
-
-        const interval = setInterval(() => {
-            const now = new Date().getTime();
-            const distance = targetDate - now;
-
-            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-            setTimeLeft({ days, hours, minutes, seconds });
-
-            if (distance < 0) {
-                clearInterval(interval);
-            }
-        }, 1000);
-
-        return () => clearInterval(interval);
-    }, []);
-
-    useEffect(() => {
-        const button = buttonRef.current;
-        const handleMouseMove = (e) => {
-            const rect = button.getBoundingClientRect();
-            const x = e.clientX - rect.left - rect.width / 2;
-            const y = e.clientY - rect.top - rect.height / 2;
-            button.style.transform = `translate(${x * 0.4}px, ${y * 0.4}px) scale(1.1)`;
-            button.style.boxShadow = `0 10px 20px rgba(0, 0, 0, 0.2)`;
-        };
-
-        const handleMouseLeave = () => {
-            button.style.transform = 'translate(0, 0) scale(1)';
-            button.style.boxShadow = 'none';
-        };
-
-        button.addEventListener('mousemove', handleMouseMove);
-        button.addEventListener('mouseleave', handleMouseLeave);
-
-        return () => {
-            button.removeEventListener('mousemove', handleMouseMove);
-            button.removeEventListener('mouseleave', handleMouseLeave);
-        };
-    }, []);
-    useEffect(() => {
-        const handleKeyPress = (e) => {
-            if (e.key === 'Escape') {
-                // Handle exit fullscreen
-                if (document.fullscreenElement) {
-                    document.exitFullscreen();
-                }
-            }
-        };
-    
-        window.addEventListener('keydown', handleKeyPress);
-        return () => window.removeEventListener('keydown', handleKeyPress);
     }, []);
 
     return (
@@ -169,15 +107,15 @@ const Home = () => {
                         dangerouslySetInnerHTML={{ __html: home.about.additionalContent.description }}>
                     </p>
                     <a href="/products">
-                    <button
-                                    ref={buttonRef}
-                                    className="bg-blue-500 text-base md:text-xl lg:text-2xl text-white py-2 md:py-3 lg:py-4 
+                        <button
+                            ref={buttonRef}
+                            className="bg-blue-500 text-base md:text-xl lg:text-2xl text-white py-2 md:py-3 lg:py-4 
                                     px-4 md:px-6 lg:px-8 rounded-full font-bold flex items-center justify-center md:justify-start 
                                     hover:bg-blue-600 animate-pulse-glow mx-auto md:mx-0"
-                                >
-                                    {home.hero.buttonText}
-                                    <span className="ml-2">→</span>
-                                </button>
+                        >
+                            {home.hero.buttonText}
+                            <span className="ml-2">→</span>
+                        </button>
                     </a>
                 </div>
                 <div className="w-full h-full md:w-1/2 relative mt-8 md:mt-0 group" data-aos="fade-left">
@@ -187,9 +125,8 @@ const Home = () => {
                                 key={index}
                                 src={slide}
                                 alt={`Slide ${index + 1}`}
-                                className={`absolute w-full h-full object-cover transition-transform duration-500 ease-in-out ${
-                                    index === currentSlide ? 'translate-x-0' : 'translate-x-full'
-                                }`}
+                                className={`absolute w-full h-full object-cover transition-transform duration-500 ease-in-out ${index === currentSlide ? 'translate-x-0' : 'translate-x-full'
+                                    }`}
                             />
                         ))}
                     </div>
@@ -208,11 +145,10 @@ const Home = () => {
                 </div>
             </section>
 
-            
-
             {/* About Section */}
-            <section className="flex flex-col md:flex-row justify-between gap-10 mt-8 px-4 py-10 md:px-28">
-            <div className="w-full h-full md:w-1/2 relative mt-8 md:mt-0" data-aos="fade-left">
+            <section className="flex relative md:top-[-8y
+            rem] flex-col md:flex-row justify-between gap-10 mt-8 px-4 py-10 md:px-28">
+                <div className="w-full h-full md:w-1/2 relative mt-8 md:mt-0" data-aos="fade-left">
                     <img src={home.about.img4} className='absolute w-20 top-0' />
                     <img
                         src={home.about.img3}
@@ -222,24 +158,24 @@ const Home = () => {
                 </div>
                 <div className="w-full md:w-1/2 p-4 flex flex-col justify-start items-baseline gap-4 animate-fade-in" data-aos="fade-up">
                     <h2 className="text-[4vw]  font-bold text-gray-800 mb-4 font-dm-serif"
-                        dangerouslySetInnerHTML={{ __html: home.about.additionalContent.title }}>
+                        dangerouslySetInnerHTML={{ __html: home.about.additionalContent.sectitle }}>
                     </h2>
                     <p className="text-lg md:text-xl lg:text-2xl text-gray-600 mb-4 leading-relaxed tracking-wide"
                         dangerouslySetInnerHTML={{ __html: home.about.additionalContent.description }}>
                     </p>
                     <a href="/products">
-                    <button
-                                    ref={buttonRef}
-                                    className="bg-blue-500 text-base md:text-xl lg:text-2xl text-white py-2 md:py-3 lg:py-4 
+                        <button
+                            ref={buttonRef}
+                            className="bg-blue-500 text-base md:text-xl lg:text-2xl text-white py-2 md:py-3 lg:py-4 
                                     px-4 md:px-6 lg:px-8 rounded-full font-bold flex items-center justify-center md:justify-start 
                                     hover:bg-blue-600 animate-pulse-glow mx-auto md:mx-0"
-                                >
-                                    {home.hero.buttonText}
-                                    <span className="ml-2">→</span>
-                                </button>
+                        >
+                            {home.hero.buttonText}
+                            <span className="ml-2">→</span>
+                        </button>
                     </a>
                 </div>
-                
+
             </section>
 
 
@@ -311,7 +247,7 @@ const Home = () => {
                 </div>
             </section> */}
             <section className="my-10">
-                <div 
+                <div
                     className="aspect-w-16 aspect-h-9"
                     role="region"
                     aria-label="Product video presentation"
@@ -357,71 +293,71 @@ const Home = () => {
                         </div>
                     </div>
                 </div>
-            </section> 
+            </section>
 
             {/* Why WE Choose Section */}
             <section id="benefits" className="py-20 bg-gray-100">
-                    <div className=" px-4 sm:px-6 lg:px-8">
-                        <div className="text-center mb-16">
+                <div className=" px-4 sm:px-6 lg:px-8">
+                    <div className="text-center mb-16">
                         <h2 className="text-6xl font-bold font-dm-serif text-gray-900 mb-4">
                             {home.benefitss.title}
                         </h2>
                         <p className="text-lg text-gray-600 max-w-2xl mx-auto">
                             {home.benefitss.sub}
                         </p>
-                        </div>
-                        
-                        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    </div>
+
+                    <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
                         {home.benefitss.benefits.map((benefit, index) => (
                             <div key={index} className="p-6 bg-white my-5 rounded-xl shadow-md hover:shadow-md transition">
-                            <div className="mb-4">{benefit.icon}</div>
-                            <h3 className="text-xl font-semibold text-gray-900 mb-2">{benefit.title}</h3>
-                            <p className="text-gray-600">{benefit.description}</p>
+                                <div className="mb-4">{benefit.icon}</div>
+                                <h3 className="text-xl font-semibold text-gray-900 mb-2">{benefit.title}</h3>
+                                <p className="text-gray-600">{benefit.description}</p>
                             </div>
                         ))}
-                        </div>
                     </div>
+                </div>
             </section>
 
             {/* How it Works */}
             <section id="howitworks" className="py-20 bg-blue-50">
                 <div className="px-4 sm:px-6 lg:px-8">
                     <div className="text-center mb-16">
-                    <h2 className="text-7xl font-bold font-dm-serif text-red-400 mb-4">
-                        {home.howItWorks.title}
-                    </h2>
-                    <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-                    {home.howItWorks.subtitle}
-                    </p>
+                        <h2 className="text-7xl font-bold font-dm-serif text-red-400 mb-4">
+                            {home.howItWorks.title}
+                        </h2>
+                        <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+                            {home.howItWorks.subtitle}
+                        </p>
                     </div>
-                    
+
                     <div className="grid md:grid-cols-3 gap-8">
-                    {home.howItWorks.steps.map((item, index) => (
-                        <div key={index} className="relative">
-                        <div className="aspect-w-16 aspect-h-9 mb-6">
-                            <img 
-                            src={item.image} 
-                            alt={item.title}
-                            className="rounded-lg object-cover w-full h-64"
-                            />
-                        </div>
-                        <div className="absolute -top-4 -left-4 w-12 h-12 bg-blue-600 text-white rounded-full flex items-center justify-center text-xl font-bold">
-                            {item.step}
-                        </div>
-                        <h3 className="text-xl font-semibold text-gray-900 mb-2">{item.title}</h3>
-                        <p className="text-gray-600">{item.description}</p>
-                        </div>
-                    ))}
+                        {home.howItWorks.steps.map((item, index) => (
+                            <div key={index} className="relative">
+                                <div className="aspect-w-16 aspect-h-9 mb-6">
+                                    <img
+                                        src={item.image}
+                                        alt={item.title}
+                                        className="rounded-lg object-cover w-full h-64"
+                                    />
+                                </div>
+                                <div className="absolute -top-4 -left-4 w-12 h-12 bg-blue-600 text-white rounded-full flex items-center justify-center text-xl font-bold">
+                                    {item.step}
+                                </div>
+                                <h3 className="text-xl font-semibold text-gray-900 mb-2">{item.title}</h3>
+                                <p className="text-gray-600">{item.description}</p>
+                            </div>
+                        ))}
                     </div>
                 </div>
             </section>
 
 
-            {/* Nature Section */}
+            {/* about1 Section */}
             <section className="flex bg-blue-50 flex-col md:flex-row justify-between gap-10">
                 <div className="w-full h-full md:w-1/2 relative mt-8 md:mt-0">
                     <img
-                        src={home.product_content.img2}
+                        src={home.product_content.img1}
                         alt="Product"
                         className="w-full h-full"
                     />
@@ -443,12 +379,37 @@ const Home = () => {
                     </a> */}
                 </div>
             </section>
+            <section className="flex bg-blue-50 flex-col md:flex-row justify-between gap-10">
+                <div className="w-full md:w-1/2 p-4 flex flex-col justify-start items-center gap-4 animate-fade-in" data-aos="fade-up">
+                    <p className="text-lg md:text-xl lg:text-2xl text-gray-600 mb-4 leading-relaxed tracking-wide">
+                        {home.product_content.title1}
+                    </p>
+                    {/* <a href="/products">
+                    <button
+                                    ref={buttonRef}
+                                    className="bg-blue-500 text-base md:text-xl lg:text-2xl text-white py-2 md:py-3 lg:py-4 
+                                    px-4 md:px-6 lg:px-8 rounded-full font-bold flex items-center justify-center md:justify-start 
+                                    hover:bg-blue-600 animate-pulse-glow mx-auto md:mx-0"
+                                >
+                                    {home.hero.buttonText}
+                                    <span className="ml-2">→</span>
+                                </button>
+                    </a> */}
+                </div>
+                <div className="w-full h-full md:w-1/2 relative mt-8 md:mt-0">
+                    <img
+                        src={home.product_content.img2}
+                        alt="Product"
+                        className="w-full h-full"
+                    />
+                </div>
+            </section>
 
             {/* FAQ Section */}
             <div>
-                        <h2 className="text-4xl md:text-4xl lg:text-6xl mt-20 text-center font-bold mb-6 font-dm-serif">
-                            Frequently Asked Questions
-                        </h2>
+                <h2 className="text-4xl md:text-4xl lg:text-6xl mt-20 text-center font-bold mb-6 font-dm-serif">
+                    Frequently Asked Questions
+                </h2>
                 <div className="flex bg-blue-50 flex-col md:flex-row justify-between relative z-10 pt-10 px-4 md:px-28 gap-8">
                     <div className="w-full md:w-1/2 flex items-center justify-center mt-8 md:mt-0">
                         <img src={faq} alt="FAQ" className="w-full rounded-3xl shadow-lg" />
@@ -490,12 +451,10 @@ const Home = () => {
                     </p>
                 </div>
 
-                <div className="flex flex-col md:flex-row  overflow-x-auto md:overflow-hidden relative">
-                    <div className="hidden md:block h-full w-1/5 z-10 absolute top-0 bg-gradient-to-r from-white to-transparent"></div>
-                    <div className="hidden md:block h-full w-1/5 z-10 absolute top-0 right-0 bg-gradient-to-r from-transparent to-white"></div>
-                    <div className="flex space-x-8 animate-slide-track">
+                <div className="flex flex-col md:flex-row overflow-x-auto md:overflow-hidden relative">
+                    <div className={`flex space-x-8 w-max hover:pause-animation ${getScrollDirection()}`}>
                         {[...home.testimonials.items, ...home.testimonials.items].map((testimonial, index) => (
-                            <div key={index} className="flex-shrink-0 w-full md:w-[400px] flex flex-col items-center p-6 bg-gray-50 rounded-lg shadow-lg" >
+                            <div key={index} className={`flex-shrink-0 w-full md:w-[400px] flex flex-col items-center p-6 bg-gray-50 rounded-lg shadow-lg ${language === 'AR' ? 'rtl' : 'ltr'}`}>
                                 <FaQuoteRight className="text-yellow-400 text-4xl mb-6" />
                                 <p className="text-gray-600 text-lg text-center mb-6">
                                     {testimonial.quote}
@@ -510,10 +469,10 @@ const Home = () => {
                                         ))}
                                     </div>
                                 </div>
-                                <img 
-                                    src={testimonial.image} 
+                                <img
+                                    src={testimonial.image}
                                     alt={testimonial.name}
-                                    className="w-24 h-24 object-cover rounded-full shadow-md mb-4" 
+                                    className="w-24 h-24 object-cover rounded-full shadow-md mb-4"
                                 />
                                 <h3 className="font-bold text-xl mb-3">{testimonial.name}</h3>
                             </div>

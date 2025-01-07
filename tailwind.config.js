@@ -13,21 +13,23 @@ module.exports = {
           700: '#1D4ED8',
         },
       },
-      animation: {
-        'float': 'float 6s ease-in-out infinite',
-        'fade-in': 'fadeIn 0.5s ease-out',
-      },
       keyframes: {
-        float: {
-          '0%, 100%': { transform: 'translateY(0)' },
-          '50%': { transform: 'translateY(-20px)' },
+        scrollLeft: {
+          '0%': { transform: 'translateX(0)' },
+          '100%': { transform: 'translateX(-50%)' },
         },
-        fadeIn: {
-          '0%': { opacity: '0', transform: 'translateY(20px)' },
-          '100%': { opacity: '1', transform: 'translateY(0)' },
-        },
+        scrollRight: {
+          '0%': { transform: 'translateX(-50%)' },
+          '100%': { transform: 'translateX(0)' },
+        }
+      },
+      animation: {
+        scrollLeft: 'scrollLeft 30s linear infinite',
+        scrollRight: 'scrollRight 30s linear infinite',
       },
     },
   },
-  plugins: [],
+  plugins: [
+    require('tailwindcss-logical'),
+  ],
 };
