@@ -46,7 +46,12 @@ const Home = () => {
     const nextSlide = () => {
         setCurrentSlide(currentSlide === slides.length - 1 ? 0 : currentSlide + 1);
     };
+    // const getScrollDirection = () => {
+    //     return language === 'AR' ? 'animate-scrollRight' : 'animate-scrollLeft';
+    // };
     const getScrollDirection = () => {
+        // Only apply animation on desktop
+        if (window.innerWidth < 768) return '';
         return language === 'AR' ? 'animate-scrollRight' : 'animate-scrollLeft';
     };
 
@@ -98,7 +103,7 @@ const Home = () => {
             </section>
 
             {/* About Section */}
-            <section className="flex flex-col md:flex-row justify-between relative bg-white z-10 md:top-[-14rem] gap-10 mt-8 px-4 py-10 md:px-28">
+            <section className="flex flex-wrap md:flex-nowrap lg:flex-nowrap flex-col md:flex-row justify-between relative bg-white z-10 md:top-[-14rem] gap-10 mt-8 px-4 py-10 md:px-28">
                 <div className="w-full md:w-1/2 p-4 flex flex-col justify-start items-baseline gap-4 animate-fade-in" data-aos="fade-up">
                     <h2 className="text-[4vw] leading font-bold text-gray-800 mb-4 font-dm-serif"
                         dangerouslySetInnerHTML={{ __html: home.about.additionalContent.title }}>
@@ -146,8 +151,7 @@ const Home = () => {
             </section>
 
             {/* About Section */}
-            <section className="flex relative md:top-[-8y
-            rem] flex-col md:flex-row justify-between gap-10 mt-8 px-4 py-10 md:px-28">
+            <section className="flex relative md:top-[-8rem] flex-wrap md:flex-nowrap lg:flex-nowrap flex-col md:flex-row justify-between gap-10 mt-8 px-4 py-10 md:px-28">
                 <div className="w-full h-full md:w-1/2 relative mt-8 md:mt-0" data-aos="fade-left">
                     <img src={home.about.img4} className='absolute w-20 top-0' />
                     <img
@@ -354,7 +358,7 @@ const Home = () => {
 
 
             {/* about1 Section */}
-            <section className="flex bg-blue-50 flex-col md:flex-row justify-between gap-10">
+            <section className="flex flex-wrap md:flex-nowrap lg:flex-nowrap bg-blue-50 flex-col md:flex-row justify-between gap-10">
                 <div className="w-full h-full md:w-1/2 relative mt-8 md:mt-0">
                     <img
                         src={home.product_content.img1}
@@ -379,7 +383,7 @@ const Home = () => {
                     </a> */}
                 </div>
             </section>
-            <section className="flex bg-blue-50 flex-col md:flex-row justify-between gap-10">
+            <section className="flex flex-wrap md:flex-nowrap lg:flex-nowrap bg-blue-50 flex-col md:flex-row justify-between gap-10">
                 <div className="w-full md:w-1/2 p-4 flex flex-col justify-start items-center gap-4 animate-fade-in" data-aos="fade-up">
                     <p className="text-lg md:text-xl lg:text-2xl text-gray-600 mb-4 leading-relaxed tracking-wide">
                         {home.product_content.title1}
@@ -410,7 +414,7 @@ const Home = () => {
                 <h2 className="text-4xl md:text-4xl lg:text-6xl mt-20 text-center font-bold mb-6 font-dm-serif">
                     Frequently Asked Questions
                 </h2>
-                <div className="flex bg-blue-50 flex-col md:flex-row justify-between relative z-10 pt-10 px-4 md:px-28 gap-8">
+                <div className="flex flex-wrap md:flex-nowrap lg:flex-nowrap bg-blue-50 flex-col md:flex-row justify-between relative z-10 pt-10 px-4 md:px-28 gap-8">
                     <div className="w-full md:w-1/2 flex items-center justify-center mt-8 md:mt-0">
                         <img src={faq} alt="FAQ" className="w-full rounded-3xl shadow-lg" />
                     </div>
@@ -451,10 +455,15 @@ const Home = () => {
                     </p>
                 </div>
 
-                <div className="flex flex-col md:flex-row overflow-x-auto md:overflow-hidden relative">
-                    <div className={`flex space-x-8 w-max hover:pause-animation ${getScrollDirection()}`}>
+                <div className="flex flex-col md:flex-row overflow-x-auto md:overflow-hidden relative snap-x snap-mandatory 
+                space-x-4 sm:space-x-6 md:space-x-8">
+                    <div className={`flex w-max hover:pause-animation   overflow-x-auto md:overflow-hidden ${getScrollDirection()}`}>
                         {[...home.testimonials.items, ...home.testimonials.items].map((testimonial, index) => (
-                            <div key={index} className={`flex-shrink-0 w-full md:w-[400px] flex flex-col items-center p-6 bg-gray-50 rounded-lg shadow-lg ${language === 'AR' ? 'rtl' : 'ltr'}`}>
+                            <div
+                                key={index}
+                                className={`flex-shrink-0 w-[250px] sm:w-[300px] md:w-[400px] snap-center flex flex-col 
+                            items-center p-6 bg-gray-50 rounded-lg shadow-lg ${language === 'AR' ? 'rtl' : 'ltr'}`}
+                            >
                                 <FaQuoteRight className="text-yellow-400 text-4xl mb-6" />
                                 <p className="text-gray-600 text-lg text-center mb-6">
                                     {testimonial.quote}
