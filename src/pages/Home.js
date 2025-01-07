@@ -54,7 +54,7 @@ const Home = () => {
     };
 
     useEffect(() => {
-        AOS.init({ duration: 1000 });
+        AOS.init({ duration: 500 });
     }, []);
 
     useEffect(() => {
@@ -364,15 +364,15 @@ const Home = () => {
                     <div className=" px-4 sm:px-6 lg:px-8">
                         <div className="text-center mb-16">
                         <h2 className="text-6xl font-bold font-dm-serif text-gray-900 mb-4">
-                            Why Choose BeyondSlim?
+                            {home.benefitss.title}
                         </h2>
                         <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-                            Our revolutionary formula combines science and nature to deliver exceptional results
+                            {home.benefitss.sub}
                         </p>
                         </div>
                         
                         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-                        {home.benefits.map((benefit, index) => (
+                        {home.benefitss.benefits.map((benefit, index) => (
                             <div key={index} className="p-6 bg-white my-5 rounded-xl shadow-md hover:shadow-md transition">
                             <div className="mb-4">{benefit.icon}</div>
                             <h3 className="text-xl font-semibold text-gray-900 mb-2">{benefit.title}</h3>
@@ -419,7 +419,7 @@ const Home = () => {
 
             {/* Nature Section */}
             <section className="flex bg-blue-50 flex-col md:flex-row justify-between gap-10">
-                <div className="w-full h-full md:w-1/2 relative mt-8 md:mt-0" data-aos="fade-left">
+                <div className="w-full h-full md:w-1/2 relative mt-8 md:mt-0">
                     <img
                         src={home.product_content.img2}
                         alt="Product"
@@ -450,7 +450,7 @@ const Home = () => {
                             Frequently Asked Questions
                         </h2>
                 <div className="flex bg-blue-50 flex-col md:flex-row justify-between relative z-10 pt-10 px-4 md:px-28 gap-8">
-                    <div className="w-full md:w-1/2 flex items-center justify-center mt-8 md:mt-0" data-aos="fade-right">
+                    <div className="w-full md:w-1/2 flex items-center justify-center mt-8 md:mt-0">
                         <img src={faq} alt="FAQ" className="w-full rounded-3xl shadow-lg" />
                     </div>
                     <div className="w-full md:w-1/2" data-aos="fade-left">
@@ -495,8 +495,7 @@ const Home = () => {
                     <div className="hidden md:block h-full w-1/5 z-10 absolute top-0 right-0 bg-gradient-to-r from-transparent to-white"></div>
                     <div className="flex space-x-8 animate-slide-track">
                         {[...home.testimonials.items, ...home.testimonials.items].map((testimonial, index) => (
-                            <div key={index} className="flex-shrink-0 w-full md:w-[400px] flex flex-col items-center p-6 bg-gray-50 rounded-lg shadow-lg" 
-                                data-aos="fade-up" data-aos-delay={index * 100}>
+                            <div key={index} className="flex-shrink-0 w-full md:w-[400px] flex flex-col items-center p-6 bg-gray-50 rounded-lg shadow-lg" >
                                 <FaQuoteRight className="text-yellow-400 text-4xl mb-6" />
                                 <p className="text-gray-600 text-lg text-center mb-6">
                                     {testimonial.quote}
