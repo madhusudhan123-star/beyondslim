@@ -23,7 +23,7 @@ import img1 from '../assets/img3.png'
 import img2 from '../assets/img5.png'
 import img3 from '../assets/img6.png'
 import img4 from '../assets/img7.png'
-import img5 from '../assets/img8.png'
+import img5 from '../assets/img8.jpeg'
 import img6 from '../assets/img9.png'
 import img7 from '../assets/gmp.png'
 import img8 from '../assets/img10.png'
@@ -57,7 +57,6 @@ const data = {
             about: {
                 img: sci,
                 img1: img1,
-                img2: img2,
                 img3: img3,
                 img4: img7,
                 additionalContent: {
@@ -94,20 +93,6 @@ const data = {
                 rating: "4.9/5",
                 reviews: "848",
                 videoUrl: "https://www.youtube.com/embed/AxYbPlLk79M?autoplay=1&loop=1&playlist=AxYbPlLk79M&rel=0"
-            },
-            trending: {
-                subtitle: "TRENDING PRODUCTS",
-                title: "Top Selling Products",
-                product: {
-                    badge: "100% Natural Products",
-                    name: "Beyond Slim",
-                    rating: 5,
-                    oldPrice: "30.00",
-                    price: "66.00",
-                    taxInfo: "Tax included.",
-                    offerText: "Limited Time Offer:",
-                    buttonText: "Buy Now"
-                }
             },
             testimonials: {
                 title: "What People Say",

@@ -15,6 +15,15 @@ import AOS from 'aos';
 import 'aos/dist/aos.css';
 import { BsChevronLeft, BsChevronRight } from 'react-icons/bs';
 
+
+const LoadingSpinner = () => (
+    <div className="flex justify-center items-center h-[300px] md:h-screen">
+        <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-blue-500"></div>
+    </div>
+);
+
+
+
 const Home = () => {
     const { language } = useLanguage();
     const { direction } = data[language];
@@ -28,8 +37,9 @@ const Home = () => {
         seconds: 0,
     });
     const [faqOpen, setFaqOpen] = useState(null);
-    const slides = [home.about.img1, home.about.img2, home.about.img3];
+    const slides = [home.about.img1, home.about.img3];
     const [currentSlide, setCurrentSlide] = useState(0);
+    const [isLoading, setIsLoading] = useState(true);
 
     const toggleFaq = (index) => {
         setFaqOpen(faqOpen === index ? null : index);
@@ -149,62 +159,8 @@ const Home = () => {
                 </div>
             </section>
 
-            {/* Trusted Brands Section */}
-            <section className='w-full md:w-full h-auto md:h-[11rem] relative md:top-[-11rem] bg-white py-8 md:py-0'>
-                <div className="w-full px-4 sm:px-8 py-8 md:py-12 bg-white">
-                    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-6 justify-items-center items-center mx-auto">
-                        <div data-aos="fade-right" data-aos-delay="0">
-                            <img src={one} alt="Trusted Brand 1" className="max-w-full h-auto" />
-                        </div>
-                        <div data-aos="fade-right" data-aos-delay="200">
-                            <img src={two} alt="Trusted Brand 2" className="max-w-full h-auto" />
-                        </div>
-                        <div data-aos="fade-right" data-aos-delay="400">
-                            <img src={three} alt="Trusted Brand 3" className="max-w-full h-auto" />
-                        </div>
-                        <div data-aos="fade-right" data-aos-delay="600">
-                            <img src={four} alt="Trusted Brand 4" className="w-[8.5rem] h-auto" />
-                        </div>
-                        <div data-aos="fade-right" data-aos-delay="800">
-                            <img src={five} alt="Trusted Brand 5" className="max-w-full h-auto" />
-                        </div>
-                        <div data-aos="fade-right" data-aos-delay="800">
-                            <img src={home.about.img4} alt="Trusted Brand 5" className="max-w-full h-auto" />
-                        </div>
-                    </div>
-                </div>
-            </section> 
-
-            {/* First Hero Section (existing) */}
-            {/* <div className='backgroundimg relative'>
-                <div className='absolute inset-0 bg-black bg-opacity-50'></div>
-                <div className='relative z-10 px-4 md:px-28 py-20 min-h-screen flex items-center'>
-                    <div className="flex flex-col md:flex-row items-center justify-between animate-fade-in w-full">
-                        <div className="w-full md:w-1/2 text-center md:text-left">
-                            <h1 className="text-5xl md:text-5xl lg:text-7xl font-bold text-white font-poppins mb-6"
-                                dangerouslySetInnerHTML={{ __html: home.hero.title }}>
-                            </h1>
-                            <p className="text-2xl md:text-4xl text-white mb-8 leading-relaxed tracking-wide">
-                                {home.hero.description}
-                            </p>
-                            <a href="/products">
-                                <button
-                                    ref={buttonRef}
-                                    className="bg-blue-500 text-xl md:text-2xl text-white py-3 md:py-4 px-6 md:px-8 rounded-full 
-                                    font-bold flex items-center justify-center md:justify-start hover:bg-blue-600 
-                                    animate-magnet mx-auto md:mx-0"
-                                >
-                                    {home.hero.buttonText}
-                                    <span className="ml-2">→</span>
-                                </button>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div> */}
-
             {/* About Section */}
-            <section className="flex flex-col md:flex-row justify-between gap-10 mt-8 px-4 py-10 md:px-28">
+            <section className="flex flex-col md:flex-row justify-between relative bg-white z-10 md:top-[-14rem] gap-10 mt-8 px-4 py-10 md:px-28">
                 <div className="w-full md:w-1/2 p-4 flex flex-col justify-start items-baseline gap-4 animate-fade-in" data-aos="fade-up">
                     <h2 className="text-[4vw] leading font-bold text-gray-800 mb-4 font-dm-serif"
                         dangerouslySetInnerHTML={{ __html: home.about.additionalContent.title }}>
@@ -252,58 +208,11 @@ const Home = () => {
                 </div>
             </section>
 
-            {/* About Section */}
-            <section className="flex flex-col md:flex-row justify-between gap-10 mt-8 px-4 py-10 md:px-28">
-                <div className="w-full md:w-1/2 p-4 flex flex-col justify-start items-baseline gap-4 animate-fade-in" data-aos="fade-up">
-                    <h2 className="text-[4vw]  font-bold text-gray-800 mb-4 font-dm-serif"
-                        dangerouslySetInnerHTML={{ __html: home.about.additionalContent.title }}>
-                    </h2>
-                    <p className="text-lg md:text-xl lg:text-2xl text-gray-600 mb-4 leading-relaxed tracking-wide"
-                        dangerouslySetInnerHTML={{ __html: home.about.additionalContent.description }}>
-                    </p>
-                    <a href="/products">
-                    <button
-                                    ref={buttonRef}
-                                    className="bg-blue-500 text-base md:text-xl lg:text-2xl text-white py-2 md:py-3 lg:py-4 
-                                    px-4 md:px-6 lg:px-8 rounded-full font-bold flex items-center justify-center md:justify-start 
-                                    hover:bg-blue-600 animate-pulse-glow mx-auto md:mx-0"
-                                >
-                                    {home.hero.buttonText}
-                                    <span className="ml-2">→</span>
-                                </button>
-                    </a>
-                </div>
-                <div className="w-full h-full md:w-1/2 relative mt-8 md:mt-0" data-aos="fade-left">
-                    <img
-                        src={home.about.img2}
-                        alt="Product"
-                        className="w-full h-full rounded-3xl shadow-lg"
-                    />
-                </div>
-            </section>
+            
 
             {/* About Section */}
             <section className="flex flex-col md:flex-row justify-between gap-10 mt-8 px-4 py-10 md:px-28">
-                <div className="w-full md:w-1/2 p-4 flex flex-col justify-start items-baseline gap-4 animate-fade-in" data-aos="fade-up">
-                    <h2 className="text-[4vw]  font-bold text-gray-800 mb-4 font-dm-serif"
-                        dangerouslySetInnerHTML={{ __html: home.about.additionalContent.title }}>
-                    </h2>
-                    <p className="text-lg md:text-xl lg:text-2xl text-gray-600 mb-4 leading-relaxed tracking-wide"
-                        dangerouslySetInnerHTML={{ __html: home.about.additionalContent.description }}>
-                    </p>
-                    <a href="/products">
-                    <button
-                                    ref={buttonRef}
-                                    className="bg-blue-500 text-base md:text-xl lg:text-2xl text-white py-2 md:py-3 lg:py-4 
-                                    px-4 md:px-6 lg:px-8 rounded-full font-bold flex items-center justify-center md:justify-start 
-                                    hover:bg-blue-600 animate-pulse-glow mx-auto md:mx-0"
-                                >
-                                    {home.hero.buttonText}
-                                    <span className="ml-2">→</span>
-                                </button>
-                    </a>
-                </div>
-                <div className="w-full h-full md:w-1/2 relative mt-8 md:mt-0" data-aos="fade-left">
+            <div className="w-full h-full md:w-1/2 relative mt-8 md:mt-0" data-aos="fade-left">
                     <img src={home.about.img4} className='absolute w-20 top-0' />
                     <img
                         src={home.about.img3}
@@ -311,6 +220,26 @@ const Home = () => {
                         className="w-full h-full rounded-3xl shadow-lg"
                     />
                 </div>
+                <div className="w-full md:w-1/2 p-4 flex flex-col justify-start items-baseline gap-4 animate-fade-in" data-aos="fade-up">
+                    <h2 className="text-[4vw]  font-bold text-gray-800 mb-4 font-dm-serif"
+                        dangerouslySetInnerHTML={{ __html: home.about.additionalContent.title }}>
+                    </h2>
+                    <p className="text-lg md:text-xl lg:text-2xl text-gray-600 mb-4 leading-relaxed tracking-wide"
+                        dangerouslySetInnerHTML={{ __html: home.about.additionalContent.description }}>
+                    </p>
+                    <a href="/products">
+                    <button
+                                    ref={buttonRef}
+                                    className="bg-blue-500 text-base md:text-xl lg:text-2xl text-white py-2 md:py-3 lg:py-4 
+                                    px-4 md:px-6 lg:px-8 rounded-full font-bold flex items-center justify-center md:justify-start 
+                                    hover:bg-blue-600 animate-pulse-glow mx-auto md:mx-0"
+                                >
+                                    {home.hero.buttonText}
+                                    <span className="ml-2">→</span>
+                                </button>
+                    </a>
+                </div>
+                
             </section>
 
 
@@ -360,7 +289,7 @@ const Home = () => {
                     ></iframe>
                 </div>
             </section> */}
-            <section className="my-10">
+            {/* <section className="my-10">
                 <div 
                     className="aspect-w-16 aspect-h-9"
                     role="region"
@@ -380,10 +309,57 @@ const Home = () => {
                         }}
                     ></iframe>
                 </div>
+            </section> */}
+            <section className="my-10">
+                <div 
+                    className="aspect-w-16 aspect-h-9"
+                    role="region"
+                    aria-label="Product video presentation"
+                >
+                    {isLoading && <LoadingSpinner />}
+                    <iframe
+                        className={`w-full h-full md:h-screen rounded-3xl ${isLoading ? 'opacity-0' : 'opacity-100'}`}
+                        src={`${home.specialist.videoUrl}?enablejsapi=1`}
+                        title="Product demonstration video"
+                        frameBorder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowFullScreen
+                        tabIndex="0"
+                        onLoad={(e) => {
+                            setIsLoading(false);
+                            e.target.focus();
+                        }}
+                    ></iframe>
+                </div>
             </section>
 
-            {/* Natural Section */}
-            <div>
+            {/* Trusted Brands Section */}
+            <section className='w-full md:w-full h-auto  bg-white py-8 md:py-0'>
+                <div className="w-full px-4 sm:px-8 py-8 md:py-12 bg-white">
+                    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-6 justify-items-center items-center mx-auto">
+                        <div data-aos="fade-right" data-aos-delay="0">
+                            <img src={one} alt="Trusted Brand 1" className="max-w-full h-auto" />
+                        </div>
+                        <div data-aos="fade-right" data-aos-delay="200">
+                            <img src={two} alt="Trusted Brand 2" className="max-w-full h-auto" />
+                        </div>
+                        <div data-aos="fade-right" data-aos-delay="400">
+                            <img src={three} alt="Trusted Brand 3" className="max-w-full h-auto" />
+                        </div>
+                        <div data-aos="fade-right" data-aos-delay="600">
+                            <img src={four} alt="Trusted Brand 4" className="w-[8.5rem] h-auto" />
+                        </div>
+                        <div data-aos="fade-right" data-aos-delay="800">
+                            <img src={five} alt="Trusted Brand 5" className="max-w-full h-auto" />
+                        </div>
+                        <div data-aos="fade-right" data-aos-delay="800">
+                            <img src={home.about.img4} alt="Trusted Brand 5" className="max-w-full h-auto" />
+                        </div>
+                    </div>
+                </div>
+            </section> 
+
+            {/* Why WE Choose Section */}
             <section id="benefits" className="py-20 bg-gray-100">
                     <div className=" px-4 sm:px-6 lg:px-8">
                         <div className="text-center mb-16">
@@ -405,9 +381,9 @@ const Home = () => {
                         ))}
                         </div>
                     </div>
-                    </section>
-            </div>
+            </section>
 
+            {/* How it Works */}
             <section id="howitworks" className="py-20 bg-blue-50">
                 <div className="px-4 sm:px-6 lg:px-8">
                     <div className="text-center mb-16">
@@ -440,6 +416,8 @@ const Home = () => {
                 </div>
             </section>
 
+
+            {/* Nature Section */}
             <section className="flex bg-blue-50 flex-col md:flex-row justify-between gap-10">
                 <div className="w-full h-full md:w-1/2 relative mt-8 md:mt-0" data-aos="fade-left">
                     <img
@@ -452,7 +430,7 @@ const Home = () => {
                     <p className="text-lg md:text-xl lg:text-2xl text-gray-600 mb-4 leading-relaxed tracking-wide">
                         {home.product_content.title2}
                     </p>
-                    <a href="/products">
+                    {/* <a href="/products">
                     <button
                                     ref={buttonRef}
                                     className="bg-blue-500 text-base md:text-xl lg:text-2xl text-white py-2 md:py-3 lg:py-4 
@@ -462,107 +440,45 @@ const Home = () => {
                                     {home.hero.buttonText}
                                     <span className="ml-2">→</span>
                                 </button>
-                    </a>
-                </div>
-            </section>
-
-            <section className="flex bg-blue-50 flex-col md:flex-row flex-wrap-reverse lg:flex-nowrap md:flex-nowrap sm:flex-wrap-reverse justify-between gap-10">
-                <div className="w-full md:w-1/2  lg:flex md:flex sm:hidden hidden flex-col justify-center items-center gap-4 animate-fade-in">
-                    <p className="text-lg md:text-xl lg:text-2xl text-gray-600 mb-4 leading-relaxed tracking-wide">
-                        {home.product_content.title1}
-                    </p>
-                    <a href="/products">
-                    <button
-                                    ref={buttonRef}
-                                    className="bg-blue-500 text-base md:text-xl lg:text-2xl text-white py-2 md:py-3 lg:py-4 
-                                    px-4 md:px-6 lg:px-8 rounded-full font-bold flex items-center justify-center md:justify-start 
-                                    hover:bg-blue-600 animate-pulse-glow mx-auto md:mx-0"
-                                >
-                                    {home.hero.buttonText}
-                                    <span className="ml-2">→</span>
-                                </button>
-                    </a>
-                </div>
-                <div className="w-full h-full md:w-1/2 relative mt-8 md:mt-0">
-                    <img
-                        src={home.product_content.img1}
-                        alt="Product"
-                        className="w-full h-full "
-                    />
+                    </a> */}
                 </div>
             </section>
 
             {/* FAQ Section */}
-            <div className="flex bg-blue-50 flex-col md:flex-row justify-between relative z-10 pt-10 px-4 md:px-28 gap-8">
-                <div className="w-full md:w-1/2 flex items-center justify-center mt-8 md:mt-0" data-aos="fade-right">
-                    <img src={faq} alt="FAQ" className="w-full rounded-3xl shadow-lg" />
-                </div>
-                <div className="w-full md:w-1/2" data-aos="fade-left">
-                    <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-6 font-dm-serif">
-                        Frequently Asked Questions
-                    </h2>
-                    {home.faq.map((item, index) => (
-                        <div key={index} className="mb-4">
-                            <button
-                                onClick={() => toggleFaq(index)}
-                                className="w-full text-left text-base md:text-xl font-semibold bg-gradient-to-r from-blue-600 to-blue-400 
-                                    text-white py-3 px-4 md:px-5 rounded-lg flex justify-between items-center shadow-md 
-                                    hover:bg-blue-500 transition-colors duration-300"
-                            >
-                                <span>{item.question}</span>
-                                {faqOpen === index ? <FaChevronUp /> : <FaChevronDown />}
-                            </button>
-                            <div
-                                className={`overflow-hidden transition-all duration-300 ${faqOpen === index ? 'max-h-40 opacity-100' : 'max-h-0 opacity-0'
-                                    }`}
-                            >
-                                <div className="mt-3 p-4 bg-blue-50 rounded-lg shadow-inner text-sm md:text-base text-gray-700 leading-relaxed">
-                                    {item.answer}
-                                </div>
-                            </div>
-                        </div>
-                    ))}
-                </div>
-            </div>
-
-            {/* Review Section */}
-            {/* <div className="px-4 md:px-28 py-16 bg-white overflow-hidden">
-                <div className="text-center mb-12">
-                    <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 font-poppins">
-                        {home.testimonials.title}
-                    </h2>
-                    <p className="text-gray-600 text-lg mb-6">
-                        {home.testimonials.subtitle}
-                    </p>
-                </div>
-
-                <div className="flex flex-col md:flex-row md:space-x-8 space-y-8 md:space-y-0 overflow-x-auto md:overflow-hidden relative">
-                    <div className="hidden md:block h-full w-1/5 z-10 absolute top-0 bg-gradient-to-r from-white to-transparent"></div>
-                    <div className="hidden md:block h-full w-1/5 z-10 absolute top-0 right-0 bg-gradient-to-r from-transparent to-white"></div>
-                    <div className="flex space-x-8 animate-slide-track">
-                        {[...home.testimonials.items, ...home.testimonials.items].map((testimonial, index) => (
-                            <div key={index} className="flex-shrink-0 w-full md:w-[400px] flex flex-col items-center p-6 bg-gray-50 rounded-lg shadow-lg" data-aos="fade-up" data-aos-delay={index * 100}>
-                                <FaQuoteRight className="text-yellow-400 text-4xl mb-6" />
-                                <p className="text-gray-600 text-lg text-center mb-6">
-                                    {testimonial.quote}
-                                </p>
-                                <img 
-                                    src={testimonial.image} 
-                                    alt={testimonial.name}
-                                    className="w-24 rounded-full shadow-md mb-4" 
-                                />
-                                <h3 className="font-bold text-xl mb-3">{testimonial.name}</h3>
-                                <div className="flex items-center justify-center space-x-1 text-yellow-300">
-                                    <span className="font-bold text-lg">5.0</span>
-                                    <div className="text-sm flex items-center">
-                                        <span>★★★★★</span>
+            <div>
+                        <h2 className="text-4xl md:text-4xl lg:text-6xl mt-20 text-center font-bold mb-6 font-dm-serif">
+                            Frequently Asked Questions
+                        </h2>
+                <div className="flex bg-blue-50 flex-col md:flex-row justify-between relative z-10 pt-10 px-4 md:px-28 gap-8">
+                    <div className="w-full md:w-1/2 flex items-center justify-center mt-8 md:mt-0" data-aos="fade-right">
+                        <img src={faq} alt="FAQ" className="w-full rounded-3xl shadow-lg" />
+                    </div>
+                    <div className="w-full md:w-1/2" data-aos="fade-left">
+                        {home.faq.map((item, index) => (
+                            <div key={index} className="mb-4">
+                                <button
+                                    onClick={() => toggleFaq(index)}
+                                    className="w-full text-left text-base md:text-xl font-semibold bg-gradient-to-r from-blue-600 to-blue-400 
+                                        text-white py-3 px-4 md:px-5 rounded-lg flex justify-between items-center shadow-md 
+                                        hover:bg-blue-500 transition-colors duration-300"
+                                >
+                                    <span>{item.question}</span>
+                                    {faqOpen === index ? <FaChevronUp /> : <FaChevronDown />}
+                                </button>
+                                <div
+                                    className={`overflow-hidden transition-all duration-300 ${faqOpen === index ? 'max-h-40 opacity-100' : 'max-h-0 opacity-0'
+                                        }`}
+                                >
+                                    <div className="mt-3 p-4 bg-blue-50 rounded-lg shadow-inner text-sm md:text-base text-gray-700 leading-relaxed">
+                                        {item.answer}
                                     </div>
                                 </div>
                             </div>
                         ))}
                     </div>
                 </div>
-            </div> */}
+            </div>
+
             {/* Review Section */}
             <div className=" py-16 bg-blue-50 overflow-hidden">
                 <div className="text-center mb-12">
